@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -106,7 +106,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
@@ -201,6 +201,16 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -401,158 +411,9 @@
 <p>在parsePropertySubElement中实现了对各种子元素的分类处理<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Parse a value, ref or collection sub-element of a property or</div><div class="line"> * constructor-arg element.</div><div class="line"> * <span class="doctag">@param</span> ele subelement of property element; we don't know which yet</div><div class="line"> * <span class="doctag">@param</span> defaultValueType the default type (class name) for any</div><div class="line"> * &#123;<span class="doctag">@code</span> &amp;lt;value&amp;gt;&#125; tag that might be created</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">parsePropertySubElement</span><span class="params">(Element ele, BeanDefinition bd, String defaultValueType)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span> (!isDefaultNamespace(ele)) &#123;</div><div class="line">		<span class="keyword">return</span> parseNestedCustomElement(ele, bd);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nodeNameEquals(ele, BEAN_ELEMENT)) &#123;</div><div class="line">		BeanDefinitionHolder nestedBd = parseBeanDefinitionElement(ele, bd);</div><div class="line">		<span class="keyword">if</span> (nestedBd != <span class="keyword">null</span>) &#123;</div><div class="line">			nestedBd = decorateBeanDefinitionIfRequired(ele, nestedBd, bd);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> nestedBd;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nodeNameEquals(ele, REF_ELEMENT)) &#123;</div><div class="line">		<span class="comment">// A generic reference to any name of any bean.</span></div><div class="line">		String refName = ele.getAttribute(BEAN_REF_ATTRIBUTE);</div><div class="line">		<span class="keyword">boolean</span> toParent = <span class="keyword">false</span>;</div><div class="line">		<span class="keyword">if</span> (!StringUtils.hasLength(refName)) &#123;</div><div class="line">			<span class="comment">// A reference to the id of another bean in the same XML file.</span></div><div class="line">			refName = ele.getAttribute(LOCAL_REF_ATTRIBUTE);</div><div class="line">			<span class="keyword">if</span> (!StringUtils.hasLength(refName)) &#123;</div><div class="line">				<span class="comment">// A reference to the id of another bean in a parent context.</span></div><div class="line">				refName = ele.getAttribute(PARENT_REF_ATTRIBUTE);</div><div class="line">				toParent = <span class="keyword">true</span>;</div><div class="line">				<span class="keyword">if</span> (!StringUtils.hasLength(refName)) &#123;</div><div class="line">					error(<span class="string">"'bean', 'local' or 'parent' is required for &lt;ref&gt; element"</span>, ele);</div><div class="line">					<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span> (!StringUtils.hasText(refName)) &#123;</div><div class="line">			error(<span class="string">"&lt;ref&gt; element contains empty target attribute"</span>, ele);</div><div class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">		&#125;</div><div class="line">		RuntimeBeanReference ref = <span class="keyword">new</span> RuntimeBeanReference(refName, toParent);</div><div class="line">		ref.setSource(extractSource(ele));</div><div class="line">		<span class="keyword">return</span> ref;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nodeNameEquals(ele, IDREF_ELEMENT)) &#123;</div><div class="line">		<span class="keyword">return</span> parseIdRefElement(ele);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nodeNameEquals(ele, VALUE_ELEMENT)) &#123;</div><div class="line">		<span class="keyword">return</span> parseValueElement(ele, defaultValueType);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nodeNameEquals(ele, NULL_ELEMENT)) &#123;</div><div class="line">		<span class="comment">// It's a distinguished null value. Let's wrap it in a TypedStringValue</span></div><div class="line">		<span class="comment">// object in order to preserve the source location.</span></div><div class="line">		TypedStringValue nullHolder = <span class="keyword">new</span> TypedStringValue(<span class="keyword">null</span>);</div><div class="line">		nullHolder.setSource(extractSource(ele));</div><div class="line">		<span class="keyword">return</span> nullHolder;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nodeNameEquals(ele, ARRAY_ELEMENT)) &#123;</div><div class="line">		<span class="keyword">return</span> parseArrayElement(ele, bd);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nodeNameEquals(ele, LIST_ELEMENT)) &#123;</div><div class="line">		<span class="keyword">return</span> parseListElement(ele, bd);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nodeNameEquals(ele, SET_ELEMENT)) &#123;</div><div class="line">		<span class="keyword">return</span> parseSetElement(ele, bd);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nodeNameEquals(ele, MAP_ELEMENT)) &#123;</div><div class="line">		<span class="keyword">return</span> parseMapElement(ele, bd);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nodeNameEquals(ele, PROPS_ELEMENT)) &#123;</div><div class="line">		<span class="keyword">return</span> parsePropsElement(ele);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> &#123;</div><div class="line">		error(<span class="string">"Unknown property sub-element: ["</span> + ele.getNodeName() + <span class="string">"]"</span>, ele);</div><div class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>spring支持的子元素已经全部在上面处理了.</p>
 <h4 id="AbstractBeanDefinition属性"><a href="#AbstractBeanDefinition属性" class="headerlink" title="AbstractBeanDefinition属性"></a>AbstractBeanDefinition属性</h4><p>经过上面一节复杂代码的处理, 完成了XML文档到GenericBeanDefinition的转化, 也就是说所有的XML配置都已经实例化为了GenericBeanDefinition的实例中的属性.<br>其大部分属性(除了partnerName)均保存在AbstractBeanDefinition中, 重要的属性如下所示:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//bean的作用范围, 对应bean的属性scope</span></div><div class="line">	<span class="keyword">private</span> String scope = SCOPE_DEFAULT;</div><div class="line"><span class="comment">//是否抽象, 对应bean的属性abstract</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> abstractFlag = <span class="keyword">false</span>;</div><div class="line"><span class="comment">//是否延迟加载, 对应bean的属性lazy-init</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> lazyInit = <span class="keyword">false</span>;</div><div class="line"><span class="comment">//自动注入模式, 对应bean属性autowire</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> autowireMode = AUTOWIRE_NO;</div><div class="line"><span class="comment">//依赖检查, spring3.0之后弃用这个属性</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> dependencyCheck = DEPENDENCY_CHECK_NONE;</div><div class="line"><span class="comment">//用来表示一个bean的实例化依靠另一个bean的实例化, 对应bean属性depend-on</span></div><div class="line">	<span class="keyword">private</span> String[] dependsOn;</div><div class="line">	<span class="comment">//该属性设置为false时, 容器在查找自动装配对象时, 将不考虑该bean</span></div><div class="line">	<span class="comment">//也就是说这个bean不会被考虑作为其它bean自动装配的候选者, 但是该bean本身还是可以使用自动装配来注入其它bean的.</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> autowireCandidate = <span class="keyword">true</span>;</div><div class="line">	<span class="comment">//自动装配出现多个候选者时作为首选者, 对应bean属性primary.</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> primary = <span class="keyword">false</span>;</div><div class="line">	<span class="comment">//用来记录Qualifier, 对应子元素Qualifier</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, AutowireCandidateQualifier&gt; qualifiers = <span class="keyword">new</span> LinkedHashMap&lt;String, AutowireCandidateQualifier&gt;(<span class="number">0</span>);</div><div class="line">	<span class="comment">//允许访问非公开的构造器和方法, 程序设置</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> nonPublicAccessAllowed = <span class="keyword">true</span>;</div><div class="line">    <span class="comment">//是否以一种宽松的模式解析构造函数, 默认为true;</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> lenientConstructorResolution = <span class="keyword">true</span>;</div><div class="line"><span class="comment">//记录构造函数注入属性, 对应bean属性constructor-arg</span></div><div class="line">	<span class="keyword">private</span> ConstructorArgumentValues constructorArgumentValues;</div><div class="line"><span class="comment">//普通属性集合</span></div><div class="line">	<span class="keyword">private</span> MutablePropertyValues propertyValues;</div><div class="line"><span class="comment">//方法重写持有者, 记录lookup-method, replaced-method元素</span></div><div class="line">	<span class="keyword">private</span> MethodOverrides methodOverrides = <span class="keyword">new</span> MethodOverrides();</div><div class="line"><span class="comment">//对应bean属性factoryBean</span></div><div class="line">	<span class="keyword">private</span> String factoryBeanName;</div><div class="line"><span class="comment">//对应bean属性factory-method</span></div><div class="line">	<span class="keyword">private</span> String factoryMethodName;</div><div class="line"><span class="comment">//对应bean属性init-method</span></div><div class="line">	<span class="keyword">private</span> String initMethodName;</div><div class="line"><span class="comment">//对应bean属性destroy-method</span></div><div class="line">	<span class="keyword">private</span> String destroyMethodName;</div><div class="line"><span class="comment">//是否执行init-method, 程序设置</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> enforceInitMethod = <span class="keyword">true</span>;</div><div class="line"><span class="comment">//是否执行destroy-method, 程序设置</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> enforceDestroyMethod = <span class="keyword">true</span>;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> synthetic = <span class="keyword">false</span>;</div><div class="line">	</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> role = BeanDefinition.ROLE_APPLICATION;</div><div class="line"><span class="comment">//描述信息</span></div><div class="line">	<span class="keyword">private</span> String description;</div><div class="line"><span class="comment">//这个bean定义的</span></div><div class="line">	<span class="keyword">private</span> Resource resource;</div></pre></td></tr></table></figure></p>
-<h4 id="注册解析的beanDefinition"><a href="#注册解析的beanDefinition" class="headerlink" title="注册解析的beanDefinition"></a>注册解析的beanDefinition</h4><p>对配置文件解析完成之后,获取的beanDefinition已经可以使用了, 剩下的工作就是开始注册, 也就是processBeanDefinition方法中的BeanDefinitionReaderUtils.registerBeanDefinition();<br>其源代码如下所示:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Register the given bean definition with the given bean factory.</div><div class="line"> * <span class="doctag">@param</span> definitionHolder the bean definition including name and aliases</div><div class="line"> * <span class="doctag">@param</span> registry the bean factory to register with</div><div class="line"> * <span class="doctag">@throws</span> BeanDefinitionStoreException if registration failed</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">registerBeanDefinition</span><span class="params">(</span></span></div><div class="line">		BeanDefinitionHolder definitionHolder, BeanDefinitionRegistry registry)</div><div class="line">		<span class="keyword">throws</span> BeanDefinitionStoreException &#123;</div><div class="line"></div><div class="line">	<span class="comment">// Register bean definition under primary name.</span></div><div class="line">	String beanName = definitionHolder.getBeanName();</div><div class="line">	<span class="comment">//根据注册beanName</span></div><div class="line">	registry.registerBeanDefinition(beanName, definitionHolder.getBeanDefinition());</div><div class="line"></div><div class="line">	<span class="comment">// Register aliases for bean name, if any.</span></div><div class="line">	String[] aliases = definitionHolder.getAliases();</div><div class="line">	<span class="keyword">if</span> (aliases != <span class="keyword">null</span>) &#123;</div><div class="line">	<span class="comment">//根据注册别名</span></div><div class="line">		<span class="keyword">for</span> (String aliase : aliases) &#123;</div><div class="line">			registry.registerAlias(beanName, aliase);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="注册解析的beanDefinition"><a href="#注册解析的beanDefinition" class="headerlink" title="注册解析的beanDefinition"></a>注册解析的beanDefinition</h4><p>对配置文件解析完成之后,获取的beanDefinition已经可以使用了, 剩下的工作就是开始注册, 也就是processBeanDefinition方法中的BeanDefinitionReaderUtils.registerBeanDefinition();<br>其源代码如下所示:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Register the given bean definition with the given bean factory.</div><div class="line"> * <span class="doctag">@param</span> definitionHolder the bean definition including name and aliases</div><div class="line"> * <span class="doctag">@param</span> registry the bean factory to register with</div><div class="line"> * <span class="doctag">@throws</span> BeanDefinitionStoreException if registration failed</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">registerBeanDefinition</span><span class="params">(</span></span></div><div class="line">		BeanDefinitionHolder definitionHolder, BeanDefinitionRegistry registry)</div><div class="line">		<span class="keyword">throws</span> BeanDefinitionStoreException &#123;</div><div class="line"></div><div class="line">	<span class="comment">// Register bean definition under primary name.</span></div><div class="line">	String beanName = definitionHolder.getBeanName();</div><div class="line">	<span class="comment">//根据beanName注册</span></div><div class="line">	registry.registerBeanDefinition(beanName, definitionHolder.getBeanDefinition());</div><div class="line"></div><div class="line">	<span class="comment">// Register aliases for bean name, if any.</span></div><div class="line">	String[] aliases = definitionHolder.getAliases();</div><div class="line">	<span class="keyword">if</span> (aliases != <span class="keyword">null</span>) &#123;</div><div class="line">	<span class="comment">//根据别名注册</span></div><div class="line">		<span class="keyword">for</span> (String aliase : aliases) &#123;</div><div class="line">			registry.registerAlias(beanName, aliase);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>对于根据beanName注册源代码如下, 具体是讲beanDefinition直接放入map中, 以beanName为key, 但是不仅仅如此:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinition</span><span class="params">(String beanName, BeanDefinition beanDefinition)</span></span></div><div class="line">			<span class="keyword">throws</span> BeanDefinitionStoreException &#123;</div><div class="line"></div><div class="line">		Assert.hasText(beanName, <span class="string">"Bean name must not be empty"</span>);</div><div class="line">		Assert.notNull(beanDefinition, <span class="string">"BeanDefinition must not be null"</span>);</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (beanDefinition <span class="keyword">instanceof</span> AbstractBeanDefinition) &#123;</div><div class="line">			<span class="keyword">try</span> &#123;</div><div class="line">				((AbstractBeanDefinition) beanDefinition).validate();</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">catch</span> (BeanDefinitionValidationException ex) &#123;</div><div class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> BeanDefinitionStoreException(beanDefinition.getResourceDescription(), beanName,</div><div class="line">						<span class="string">"Validation of bean definition failed"</span>, ex);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		BeanDefinition oldBeanDefinition;</div><div class="line"></div><div class="line"><span class="comment">//虽然beanDefinitionMap是concurrentHashMap, 但是下面代码中并非原子操作, 所以需要同步, 因为可能会并发访问.</span></div><div class="line">		<span class="keyword">synchronized</span> (<span class="keyword">this</span>.beanDefinitionMap) &#123;</div><div class="line">			oldBeanDefinition = <span class="keyword">this</span>.beanDefinitionMap.get(beanName);</div><div class="line">			<span class="keyword">if</span> (oldBeanDefinition != <span class="keyword">null</span>) &#123;</div><div class="line">			<span class="comment">//如果已经注册了这个beanname</span></div><div class="line">				<span class="keyword">if</span> (!<span class="keyword">this</span>.allowBeanDefinitionOverriding) &#123;</div><div class="line">				<span class="comment">//不允许覆盖,抛出异常</span></div><div class="line">					<span class="keyword">throw</span> <span class="keyword">new</span> BeanDefinitionStoreException(beanDefinition.getResourceDescription(), beanName,</div><div class="line">							<span class="string">"Cannot register bean definition ["</span> + beanDefinition + <span class="string">"] for bean '"</span> + beanName +</div><div class="line">							<span class="string">"': There is already ["</span> + oldBeanDefinition + <span class="string">"] bound."</span>);</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (oldBeanDefinition.getRole() &lt; beanDefinition.getRole()) &#123;</div><div class="line">					<span class="comment">// e.g. was ROLE_APPLICATION, now overriding with ROLE_SUPPORT or ROLE_INFRASTRUCTURE</span></div><div class="line">					<span class="keyword">if</span> (<span class="keyword">this</span>.logger.isWarnEnabled()) &#123;</div><div class="line">						<span class="keyword">this</span>.logger.warn(<span class="string">"Overriding user-defined bean definition for bean '"</span> + beanName +</div><div class="line">								<span class="string">" with a framework-generated bean definition ': replacing ["</span> +</div><div class="line">								oldBeanDefinition + <span class="string">"] with ["</span> + beanDefinition + <span class="string">"]"</span>);</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">else</span> &#123;</div><div class="line">					<span class="keyword">if</span> (<span class="keyword">this</span>.logger.isInfoEnabled()) &#123;</div><div class="line">						<span class="keyword">this</span>.logger.info(<span class="string">"Overriding bean definition for bean '"</span> + beanName +</div><div class="line">								<span class="string">"': replacing ["</span> + oldBeanDefinition + <span class="string">"] with ["</span> + beanDefinition + <span class="string">"]"</span>);</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">else</span> &#123;</div><div class="line">			<span class="comment">//记录下要被注册的beanName</span></div><div class="line">				<span class="keyword">this</span>.beanDefinitionNames.add(beanName);</div><div class="line">				<span class="keyword">this</span>.frozenBeanDefinitionNames = <span class="keyword">null</span>;</div><div class="line">			&#125;</div><div class="line">			<span class="comment">//注册beanDefinition</span></div><div class="line">			<span class="keyword">this</span>.beanDefinitionMap.put(beanName, beanDefinition);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (oldBeanDefinition != <span class="keyword">null</span> || containsSingleton(beanName)) &#123;</div><div class="line">		    <span class="comment">//重置所有的beanname对应的缓存</span></div><div class="line">			resetBeanDefinition(beanName);</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
 <p>以下是通过别名注册BeanDefinition的源代码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerAlias</span><span class="params">(String name, String alias)</span> </span>&#123;</div><div class="line">	Assert.hasText(name, <span class="string">"'name' must not be empty"</span>);</div><div class="line">	Assert.hasText(alias, <span class="string">"'alias' must not be empty"</span>);</div><div class="line">	<span class="comment">//beanName和alias相同的话, 则不注册</span></div><div class="line">	<span class="keyword">if</span> (alias.equals(name)) &#123;</div><div class="line">		<span class="keyword">this</span>.aliasMap.remove(alias);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> &#123;</div><div class="line">	<span class="comment">//如果alias不允许被覆盖, 则抛出异常, 这个参数其实就是allowBeanDefinitionOverriding</span></div><div class="line">		<span class="keyword">if</span> (!allowAliasOverriding()) &#123;</div><div class="line">			String registeredName = <span class="keyword">this</span>.aliasMap.get(alias);</div><div class="line">			<span class="keyword">if</span> (registeredName != <span class="keyword">null</span> &amp;&amp; !registeredName.equals(name)) &#123;</div><div class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Cannot register alias '"</span> + alias + <span class="string">"' for name '"</span> +</div><div class="line">						name + <span class="string">"': It is already registered for name '"</span> + registeredName + <span class="string">"'."</span>);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="comment">//如果aliasMap中name已经对应了alias, 那就抛出异常</span></div><div class="line">		checkForAliasCircle(name, alias);</div><div class="line">		<span class="comment">//注册alias</span></div><div class="line">		<span class="keyword">this</span>.aliasMap.put(alias, name);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="sd1026203.github.io/2017/04/24/lock/reentrantlock/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="葛伟">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="高山仰止,景行行止">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/24/lock/reentrantlock/" itemprop="url">
-                  可重入锁
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-24T00:00:00+08:00">
-                2017-04-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/锁/" itemprop="url" rel="index">
-                    <span itemprop="name">锁</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本文中所说的可重入锁是广义上的, 不单指Java中的ReentrantLock.<br>可重入锁，也叫做递归锁，指的是同一线程 外层函数获得锁之后 ，内层递归函数仍然有获取该锁的代码，但不受影响。<br>在JAVA环境下 ReentrantLock 和synchronized 都是 可重入锁.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(Thread.currentThread().getId());</div><div class="line">		set();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(Thread.currentThread().getId());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">		get();</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Test ss=<span class="keyword">new</span> Test();</div><div class="line">		<span class="keyword">new</span> Thread(ss).start();</div><div class="line">		<span class="keyword">new</span> Thread(ss).start();</div><div class="line">		<span class="keyword">new</span> Thread(ss).start();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestReentrantLock</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">    ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span> </span>&#123;</div><div class="line">        lock.lock();</div><div class="line">        System.out.println(Thread.currentThread().getId());</div><div class="line">        set();</div><div class="line">        lock.unlock();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">()</span> </span>&#123;</div><div class="line">        lock.lock();</div><div class="line">        System.out.println(Thread.currentThread().getId());</div><div class="line">        lock.unlock();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        get();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        TestReentrantLock ss = <span class="keyword">new</span> TestReentrantLock();</div><div class="line">        <span class="keyword">new</span> Thread(ss).start();</div><div class="line">        <span class="keyword">new</span> Thread(ss).start();</div><div class="line">        <span class="keyword">new</span> Thread(ss).start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>两个例子最后的结果都是正确的，即 同一个线程id被连续输出两次。结果如下：</p>
-<p>Threadid: 8<br>Threadid: 8<br>Threadid: 10<br>Threadid: 10<br>Threadid: 9<br>Threadid: 9</p>
-<p>可重入锁最大的作用是避免死锁.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpinLock</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> AtomicReference&lt;Thread&gt; owner =<span class="keyword">new</span> AtomicReference&lt;&gt;();</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		<span class="keyword">while</span>(!owner.compareAndSet(<span class="keyword">null</span>, current))&#123;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span> <span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		owner.compareAndSet(current, <span class="keyword">null</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>对于自旋锁来说，<br>1、若有同一线程两调用lock() ，会导致第二次调用lock位置进行自旋，产生了死锁<br>说明这个锁并不是可重入的。（在lock函数内，应验证线程是否为已经获得锁的线程）<br>2、若1问题已经解决，当unlock（）第一次调用时，就已经将锁释放了。实际上不应释放锁。<br>（采用计数次进行统计）<br>修改之后，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpinLock1</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> AtomicReference&lt;Thread&gt; owner =<span class="keyword">new</span> AtomicReference&lt;&gt;();</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> count =<span class="number">0</span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		<span class="keyword">if</span>(current==owner.get()) &#123;</div><div class="line">			count++;</div><div class="line">			<span class="keyword">return</span> ;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">while</span>(!owner.compareAndSet(<span class="keyword">null</span>, current))&#123;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span> <span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		<span class="keyword">if</span>(current==owner.get())&#123;</div><div class="line">			<span class="keyword">if</span>(count!=<span class="number">0</span>)&#123;</div><div class="line">				count--;</div><div class="line">			&#125;<span class="keyword">else</span>&#123;</div><div class="line">				owner.compareAndSet(current, <span class="keyword">null</span>);</div><div class="line">			&#125;</div><div class="line"></div><div class="line">		&#125;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>该自旋锁即为可重入锁。 </p>
 
           
         
@@ -725,6 +586,155 @@
 <li>传递性：如果A happens- before B，且B happens- before C，那么A happens- before C。</li>
 </ol>
 <p>注意，两个操作之间具有happens-before关系，并不意味着前一个操作必须要在后一个操作之前执行！happens-before仅仅要求前一个操作（执行的结果）对后一个操作可见，且前一个操作按顺序排在第二个操作之前（the first is visible to and ordered before the second）。happens- before的定义很微妙，后文会具体说明happens-before为什么要这么定义。<br>happens-before与JMM的关系如下图所示：<br><img src="https://www.github.com/sd1026203/img/raw/master/1493030836681.jpg" alt="enter description here"><br>如上图所示，一个happens-before规则通常对应于多个编译器和处理器重排序规则。对于java程序员来说，happens-before规则简单易懂，它避免java程序员为了理解JMM提供的内存可见性保证而去学习复杂的重排序规则以及这些规则的具体实现。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="sd1026203.github.io/2017/04/24/lock/reentrantlock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="葛伟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="高山仰止,景行行止">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/24/lock/reentrantlock/" itemprop="url">
+                  可重入锁
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-24T00:00:00+08:00">
+                2017-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/锁/" itemprop="url" rel="index">
+                    <span itemprop="name">锁</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文中所说的可重入锁是广义上的, 不单指Java中的ReentrantLock.<br>可重入锁，也叫做递归锁，指的是同一线程 外层函数获得锁之后 ，内层递归函数仍然有获取该锁的代码，但不受影响。<br>在JAVA环境下 ReentrantLock 和synchronized 都是 可重入锁.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(Thread.currentThread().getId());</div><div class="line">		set();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(Thread.currentThread().getId());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">		get();</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Test ss=<span class="keyword">new</span> Test();</div><div class="line">		<span class="keyword">new</span> Thread(ss).start();</div><div class="line">		<span class="keyword">new</span> Thread(ss).start();</div><div class="line">		<span class="keyword">new</span> Thread(ss).start();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestReentrantLock</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">    ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span> </span>&#123;</div><div class="line">        lock.lock();</div><div class="line">        System.out.println(Thread.currentThread().getId());</div><div class="line">        set();</div><div class="line">        lock.unlock();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">()</span> </span>&#123;</div><div class="line">        lock.lock();</div><div class="line">        System.out.println(Thread.currentThread().getId());</div><div class="line">        lock.unlock();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        get();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        TestReentrantLock ss = <span class="keyword">new</span> TestReentrantLock();</div><div class="line">        <span class="keyword">new</span> Thread(ss).start();</div><div class="line">        <span class="keyword">new</span> Thread(ss).start();</div><div class="line">        <span class="keyword">new</span> Thread(ss).start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>两个例子最后的结果都是正确的，即 同一个线程id被连续输出两次。结果如下：</p>
+<p>Threadid: 8<br>Threadid: 8<br>Threadid: 10<br>Threadid: 10<br>Threadid: 9<br>Threadid: 9</p>
+<p>可重入锁最大的作用是避免死锁.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpinLock</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> AtomicReference&lt;Thread&gt; owner =<span class="keyword">new</span> AtomicReference&lt;&gt;();</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		<span class="keyword">while</span>(!owner.compareAndSet(<span class="keyword">null</span>, current))&#123;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span> <span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		owner.compareAndSet(current, <span class="keyword">null</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对于自旋锁来说，<br>1、若有同一线程两调用lock() ，会导致第二次调用lock位置进行自旋，产生了死锁<br>说明这个锁并不是可重入的。（在lock函数内，应验证线程是否为已经获得锁的线程）<br>2、若1问题已经解决，当unlock（）第一次调用时，就已经将锁释放了。实际上不应释放锁。<br>（采用计数次进行统计）<br>修改之后，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpinLock1</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> AtomicReference&lt;Thread&gt; owner =<span class="keyword">new</span> AtomicReference&lt;&gt;();</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> count =<span class="number">0</span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		<span class="keyword">if</span>(current==owner.get()) &#123;</div><div class="line">			count++;</div><div class="line">			<span class="keyword">return</span> ;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">while</span>(!owner.compareAndSet(<span class="keyword">null</span>, current))&#123;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span> <span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		<span class="keyword">if</span>(current==owner.get())&#123;</div><div class="line">			<span class="keyword">if</span>(count!=<span class="number">0</span>)&#123;</div><div class="line">				count--;</div><div class="line">			&#125;<span class="keyword">else</span>&#123;</div><div class="line">				owner.compareAndSet(current, <span class="keyword">null</span>);</div><div class="line">			&#125;</div><div class="line"></div><div class="line">		&#125;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>该自旋锁即为可重入锁。 </p>
 
           
         
@@ -1349,7 +1359,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Mist
   </a>
 </div>
 
