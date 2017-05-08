@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="工具简介jstack用法1jstack -l pid &amp;gt; jstack.log  线上机器需要切换至有权限用户 线程信息中几种状态含义RUNNABLE 状态是线程正在正常运行中, 当然可能会有某种耗时计算/IO等待的操作/CPU时间片切换等, 这个状态下发生的等待一般是其他系统资源, 而不是锁. BLOCKED  这个状态下, 是在多个线程有同步操作的场景, 比如正在等待另一个线程的sync">
+<meta name="description" content="工具简介jstack用法1jstack -l pid &amp;gt; jstack.log  线上机器需要切换至有权限用户 线程信息中几种状态含义1. RUNNABLE 状态是线程正在正常运行中, 当然可能会有某种耗时计算/IO等待的操作/CPU时间片切换等, 这个状态下发生的等待一般是其他系统资源, 而不是锁. 2. BLOCKED  这个状态下, 是在多个线程有同步操作的场景, 比如正在等待另一个线">
 <meta name="keywords" content="java基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一些线上问题的排查方法">
 <meta property="og:url" content="sd1026203.github.io/2017/05/05/base/how_to_resolve_online_problem/index.html">
 <meta property="og:site_name" content="高山仰止,景行行止">
-<meta property="og:description" content="工具简介jstack用法1jstack -l pid &amp;gt; jstack.log  线上机器需要切换至有权限用户 线程信息中几种状态含义RUNNABLE 状态是线程正在正常运行中, 当然可能会有某种耗时计算/IO等待的操作/CPU时间片切换等, 这个状态下发生的等待一般是其他系统资源, 而不是锁. BLOCKED  这个状态下, 是在多个线程有同步操作的场景, 比如正在等待另一个线程的sync">
-<meta property="og:updated_time" content="2017-05-08T03:28:01.484Z">
+<meta property="og:description" content="工具简介jstack用法1jstack -l pid &amp;gt; jstack.log  线上机器需要切换至有权限用户 线程信息中几种状态含义1. RUNNABLE 状态是线程正在正常运行中, 当然可能会有某种耗时计算/IO等待的操作/CPU时间片切换等, 这个状态下发生的等待一般是其他系统资源, 而不是锁. 2. BLOCKED  这个状态下, 是在多个线程有同步操作的场景, 比如正在等待另一个线">
+<meta property="og:updated_time" content="2017-05-08T06:08:01.478Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些线上问题的排查方法">
-<meta name="twitter:description" content="工具简介jstack用法1jstack -l pid &amp;gt; jstack.log  线上机器需要切换至有权限用户 线程信息中几种状态含义RUNNABLE 状态是线程正在正常运行中, 当然可能会有某种耗时计算/IO等待的操作/CPU时间片切换等, 这个状态下发生的等待一般是其他系统资源, 而不是锁. BLOCKED  这个状态下, 是在多个线程有同步操作的场景, 比如正在等待另一个线程的sync">
+<meta name="twitter:description" content="工具简介jstack用法1jstack -l pid &amp;gt; jstack.log  线上机器需要切换至有权限用户 线程信息中几种状态含义1. RUNNABLE 状态是线程正在正常运行中, 当然可能会有某种耗时计算/IO等待的操作/CPU时间片切换等, 这个状态下发生的等待一般是其他系统资源, 而不是锁. 2. BLOCKED  这个状态下, 是在多个线程有同步操作的场景, 比如正在等待另一个线">
 
 
 
@@ -357,18 +357,19 @@
 
       
         <h1 id="工具简介"><a href="#工具简介" class="headerlink" title="工具简介"></a>工具简介</h1><h2 id="jstack"><a href="#jstack" class="headerlink" title="jstack"></a>jstack</h2><h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jstack <span class="_">-l</span> pid &gt; jstack.log  线上机器需要切换至有权限用户</div></pre></td></tr></table></figure>
-<h3 id="线程信息中几种状态含义"><a href="#线程信息中几种状态含义" class="headerlink" title="线程信息中几种状态含义"></a>线程信息中几种状态含义</h3><pre><code>RUNNABLE 状态是线程正在正常运行中, 当然可能会有某种耗时计算/IO等待的操作/CPU时间片切换等, 这个状态下发生的等待一般是其他系统资源, 而不是锁.
-BLOCKED  这个状态下, 是在多个线程有同步操作的场景, 比如正在等待另一个线程的synchronized 块的执行释放, 或者可重入的 synchronized块里别人调用wait() 方法, 也就是这里是线程在等待进入临界区
-WAITING（线 程池中从BlockingQueue.take()方法处常见）  这个状态下是指线程拥有了某个锁之后, 调用了他的wait方法, 等待其他线程/锁拥有者调用 notify / notifyAll 一遍该线程可以继续下一步操作, 这里要区分 BLOCKED 和 WATING 的区别, 一个是在临界点外面等待进入, 一个是在临界点里面wait等待别人notify, 线程调用了join方法 join了另外的线程的时候, 也会进入WAITING状态, 等待被他join的线程执行结束
-TIMED_WAITING  这个状态就是有限的(时间限制)的WAITING, 一般出现在调用wait(long), join(long)等情况下, 另外一个线程sleep后, 也会进入TIMED_WAITING状态
-TERMINATED 这个状态下表示 该线程的run方法已经执行完毕了, 基本上就等于死亡了(当时如果线程被持久持有, 可能不会被回收)
-</code></pre><h3 id="waiting状态及括号内容说明"><a href="#waiting状态及括号内容说明" class="headerlink" title="waiting状态及括号内容说明"></a>waiting状态及括号内容说明</h3><pre><code>sleeping: sleep状态, 调用了sleep()方法可进入此状态;
-parking: 线程挂起, 可能是在等待其他线程唤醒;
-on object monitor ： object.wait()方法可使线程进入这个状态
-</code></pre><h3 id="线程基本状态信息"><a href="#线程基本状态信息" class="headerlink" title="线程基本状态信息"></a>线程基本状态信息</h3><pre><code>waiting for monitor entry, 线程在等待进入临界区;一般此时线程状态都是Blocked
-waiting on condition, 等待另一个条件来唤醒自己; 此时线程状态一般为WAITING(parking)或者TIMED_WAITING(parking或者sleeping).
-in Object.wait(), 获取monitor之后, 又调用了wait()方法.此时线程状态一般为WAITING(on object monitor)或者TIMED_WAITING(on object monitor);
-</code></pre>
+<h3 id="线程信息中几种状态含义"><a href="#线程信息中几种状态含义" class="headerlink" title="线程信息中几种状态含义"></a>线程信息中几种状态含义</h3><pre><code>1. RUNNABLE 状态是线程正在正常运行中, 当然可能会有某种耗时计算/IO等待的操作/CPU时间片切换等, 这个状态下发生的等待一般是其他系统资源, 而不是锁.
+2. BLOCKED  这个状态下, 是在多个线程有同步操作的场景, 比如正在等待另一个线程的synchronized 块的执行释放, 或者可重入的 synchronized块里别人调用wait() 方法, 也就是这里是线程在等待进入临界区
+3. WAITING（线 程池中从BlockingQueue.take()方法处常见）  这个状态下是指线程拥有了某个锁之后, 调用了他的wait方法, 等待其他线程/锁拥有者调用 notify / notifyAll 一遍该线程可以继续下一步操作, 这里要区分 BLOCKED 和 WATING 的区别, 一个是在临界点外面等待进入, 一个是在临界点里面wait等待别人notify, 线程调用了join方法 join了另外的线程的时候, 也会进入WAITING状态, 等待被他join的线程执行结束
+4. TIMED_WAITING  这个状态就是有限的(时间限制)的WAITING, 一般出现在调用wait(long), join(long)等情况下, 另外一个线程sleep后, 也会进入TIMED_WAITING状态
+5. TERMINATED 这个状态下表示 该线程的run方法已经执行完毕了, 基本上就等于死亡了(当时如果线程被持久持有, 可能不会被回收)
+</code></pre><h3 id="waiting状态及括号内容说明"><a href="#waiting状态及括号内容说明" class="headerlink" title="waiting状态及括号内容说明"></a>waiting状态及括号内容说明</h3><pre><code>1. sleeping: sleep状态, 调用了sleep()方法可进入此状态;
+2. parking: 线程挂起, 可能是在等待其他线程唤醒;
+3. on object monitor ： object.wait()方法可使线程进入这个状态
+</code></pre><h3 id="线程基本状态信息"><a href="#线程基本状态信息" class="headerlink" title="线程基本状态信息"></a>线程基本状态信息</h3><pre><code>1. waiting for monitor entry, 线程在等待进入临界区;一般此时线程状态都是Blocked
+2. waiting on condition, 等待另一个条件来唤醒自己; 此时线程状态一般为WAITING(parking)或者TIMED_WAITING(parking或者sleeping).
+3. in Object.wait(), 获取monitor之后, 又调用了wait()方法.此时线程状态一般为WAITING(on object monitor)或者TIMED_WAITING(on object monitor);
+</code></pre><h2 id="jmap"><a href="#jmap" class="headerlink" title="jmap"></a>jmap</h2><h3 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h3><p>1</p>
+
       
     </div>
 
@@ -547,7 +548,7 @@ in Object.wait(), 获取monitor之后, 又调用了wait()方法.此时线程状�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#工具简介"><span class="nav-number">1.</span> <span class="nav-text">工具简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#jstack"><span class="nav-number">1.1.</span> <span class="nav-text">jstack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用法"><span class="nav-number">1.1.1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程信息中几种状态含义"><span class="nav-number">1.1.2.</span> <span class="nav-text">线程信息中几种状态含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#waiting状态及括号内容说明"><span class="nav-number">1.1.3.</span> <span class="nav-text">waiting状态及括号内容说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程基本状态信息"><span class="nav-number">1.1.4.</span> <span class="nav-text">线程基本状态信息</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#工具简介"><span class="nav-number">1.</span> <span class="nav-text">工具简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#jstack"><span class="nav-number">1.1.</span> <span class="nav-text">jstack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用法"><span class="nav-number">1.1.1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程信息中几种状态含义"><span class="nav-number">1.1.2.</span> <span class="nav-text">线程信息中几种状态含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#waiting状态及括号内容说明"><span class="nav-number">1.1.3.</span> <span class="nav-text">waiting状态及括号内容说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程基本状态信息"><span class="nav-number">1.1.4.</span> <span class="nav-text">线程基本状态信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jmap"><span class="nav-number">1.2.</span> <span class="nav-text">jmap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用法-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">用法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
