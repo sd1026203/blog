@@ -263,6 +263,308 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="sd1026203.github.io/2017/09/15/58/comments_api/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="葛伟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="高山仰止,景行行止">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/09/15/58/comments_api/" itemprop="url">
+                  评论接口
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T00:00:00+08:00">
+                2017-09-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/58/" itemprop="url" rel="index">
+                    <span itemprop="name">58</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>入口请求</strong></p>
+<p>url: /pinglun</p>
+<p>跳转模板: pinglun</p>
+<p>传入参数; cityid, channel</p>
+<p>是否登录标志: isLogin, 1为已经登录, 0为未登录</p>
+<p><strong>评论相关的返回值格式</strong></p>
+<p>先说一下返回值的总体格式如下:</p>
+<p>{ “data”: null,</p>
+<pre>   "baseResponse": {
+       "status": 0,
+       "message": "成功"
+   }
+</pre>
+
+<p>}</p>
+<p>Data为具体返回值, 下面会罗列各个接口的返回data baseResponse为状态码, 只有status为0的是正常返回</p>
+<p><strong>评论前获取识别码</strong></p>
+<p>点击输入框时, 应调用此接口, 接口返回字符串, 该字符串在新增评论时应作为参数回传, 有时效为1小时</p>
+<p>url: /pinglun/getValidCodeBeforeAddNewComment</p>
+<p>method: get</p>
+<p>参数: userid, 不能为空</p>
+<p>返回值: string</p>
+<p><strong>新增评论</strong></p>
+<p>用户新增评论 url : /pinglun/addNewComment method: Post 参数: addCommentModel</p>
+<p>{</p>
+<pre>   "entityTitle": null, //标题不能为空
+   "content": null, //评论内容不能为空, 最少1个字, 最多512
+   "user": null,  //评论人不能为空
+   "toUser": null, //被评论人
+   "partnerID": null,   //父评论ID
+   "businessID": null,   //业务线ID, 头条为1
+   "entityID": null, //文章ID不能为空
+   "checkStatus": null,//传null
+   "rejectReason": null,//传null
+   "validCode": null  //识别码不能为空
+</pre>
+
+<p>}</p>
+<p>返回值: Long, 评论ID</p>
+<p><strong>点赞</strong></p>
+<p>对一条评论点赞 url: /pinglun/likeComment method: post 参数likeCommentModel</p>
+<p>{</p>
+<pre>   "user": null,  //用户
+   "commentID": null,//评论ID不能为空
+   "machineID": null//机器码不能为空
+</pre>
+
+<p>}</p>
+<p>返回值: Integer, 目前该评论点赞数</p>
+<p><strong>获取热门评论</strong></p>
+<p>url: /pinglun/getHotComments method: get 参数: queryHotCommentsModel { “businessID”:null,//业务线ID “entityID”:null,//文章ID “machineID”:null//机器码 }</p>
+<p>返回值: APPCommentModel列表: [</p>
+<pre>   {
+       "entityTitle": null, //文章标题
+       "content": null,//评论内容
+       "user": null,//评论人
+       "toUser": null,//被评论人
+       "likeNum": null,//点赞数
+       "commentaryNum": null,//被回复数
+       "createdTime": null,//创建时间
+       "partnerID": null,//父评论ID
+       "whoLike": null,//点赞列表, user的list对象
+       "checkStatus": null,//审核状态
+       "commentID": null,//评论ID
+       "businessID": null,//业务线ID
+       "entityID": null,//文章ID
+       "purchaseNote": null,//额外信息, 暂时没用
+       "ifLiked": null //是否点过赞
+   }
+</pre>
+
+<p>]</p>
+<p><strong>获取一般评论</strong></p>
+<p>url:/pinglun/getComments</p>
+<p>method: get 参数: queryCommentsModel {</p>
+<pre>   "businessID": null,
+   "entityID": null,
+   "pageNum": null, 页数最小为1
+   "pageSize": null, 每页最少1条,最多20条
+   "partnerID": null, 不能为空, 如果是查询一级评论请传0L
+   "machineID": null手机ID不能为空
+</pre>
+
+<p>}</p>
+<p>返回时: 同获取热门评论</p>
+<h2 id="编辑-评论接口"><a href="#编辑-评论接口" class="headerlink" title="[编辑]评论接口"></a>[<a href="http://wiki.58corp.com/index.php?title=%E7%94%A8%E6%88%B7%E8%AE%A8%E8%AE%BA:Gewei01&amp;action=edit&amp;section=1" title="编辑段落：评论接口" target="_blank" rel="external">编辑</a>]评论接口</h2><p><strong>入口请求</strong></p>
+<p>url: /pinglun 跳转模板: pinglun 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式 先说一下返回值的总体格式如下:</p>
+<p>{ “data”: null,</p>
+<pre>   "baseResponse": {
+       "status": 0,
+       "message": "成功"
+   }
+</pre>
+
+<p>}</p>
+<p>Data为具体返回值, 下面会罗列各个接口的返回data baseResponse为状态码, 只有status为0的是正常返回</p>
+<p><strong>评论前获取识别码</strong></p>
+<p>点击输入框时, 应调用此接口, 接口返回字符串, 该字符串在新增评论时应作为参数回传, 有时效为1小时 url: /pinglun/getValidCodeBeforeAddNewComment method: get 参数: userid, 不能为空 返回值: string</p>
+<p><strong>新增评论</strong></p>
+<p>用户新增评论 url : /pinglun/addNewComment method: Post 参数: addCommentModel</p>
+<p>{</p>
+<pre>   "entityTitle": null, //标题不能为空
+   "content": null, //评论内容不能为空, 最少1个字, 最多512
+   "user": null,  //评论人不能为空
+   "toUser": null, //被评论人
+   "partnerID": null,   //父评论ID
+   "businessID": null,   //业务线ID, 头条为1
+   "entityID": null, //文章ID不能为空
+   "checkStatus": null,//传null
+   "rejectReason": null,//传null
+   "validCode": null  //识别码不能为空
+</pre>
+
+<p>}</p>
+<p>返回值: Long, 评论ID</p>
+<p><strong>点赞</strong></p>
+<p>对一条评论点赞 url: /pinglun/likeComment method: post 参数likeCommentModel</p>
+<p>{</p>
+<pre>   "user": null,  //用户
+   "commentID": null,//评论ID不能为空
+   "machineID": null//机器码不能为空
+</pre>
+
+<p>}</p>
+<p>返回值: Integer, 目前该评论点赞数</p>
+<p><strong>获取热门评论</strong></p>
+<p>url: /pinglun/getHotComments method: get 参数: queryHotCommentsModel { “businessID”:null,//业务线ID “entityID”:null,//文章ID “machineID”:null//机器码 }</p>
+<p>返回值: APPCommentModel列表: [</p>
+<pre>   {
+       "entityTitle": null, //文章标题
+       "content": null,//评论内容
+       "user": null,//评论人
+       "toUser": null,//被评论人
+       "likeNum": null,//点赞数
+       "commentaryNum": null,//被回复数
+       "createdTime": null,//创建时间
+       "partnerID": null,//父评论ID
+       "whoLike": null,//点赞列表, user的list对象
+       "checkStatus": null,//审核状态
+       "commentID": null,//评论ID
+       "businessID": null,//业务线ID
+       "entityID": null,//文章ID
+       "purchaseNote": null,//额外信息, 暂时没用
+       "ifLiked": null //是否点过赞
+   }
+</pre>
+
+<p>]</p>
+<p><strong>获取一般评论</strong></p>
+<p>url:/pinglun/getComments</p>
+<p>method: get 参数: queryCommentsModel {</p>
+<pre>   "businessID": null,
+   "entityID": null,
+   "pageNum": null, 页数最小为1
+   "pageSize": null, 每页最少1条,最多20条
+   "partnerID": null, 不能为空, 如果是查询一级评论请传0L
+   "machineID": null手机ID不能为空
+</pre>
+
+<p>}</p>
+<p>返回时: 同获取热门评论</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="sd1026203.github.io/2017/05/05/base/how_to_resolve_online_problem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -367,17 +669,33 @@
 <li>BLOCKED  这个状态下, 是在多个线程有同步操作的场景, 比如正在等待另一个线程的synchronized 块的执行释放, 或者可重入的 synchronized块里别人调用wait() 方法, 也就是这里是线程在等待进入临界区</li>
 <li>WAITING（线 程池中从BlockingQueue.take()方法处常见）  这个状态下是指线程拥有了某个锁之后, 调用了他的wait方法, 等待其他线程/锁拥有者调用 notify / notifyAll 一遍该线程可以继续下一步操作, 这里要区分 BLOCKED 和 WATING 的区别, 一个是在临界点外面等待进入, 一个是在临界点里面wait等待别人notify, 线程调用了join方法 join了另外的线程的时候, 也会进入WAITING状态, 等待被他join的线程执行结束</li>
 <li>TIMED_WAITING  这个状态就是有限的(时间限制)的WAITING, 一般出现在调用wait(long), join(long)等情况下, 另外一个线程sleep后, 也会进入TIMED_WAITING状态</li>
-<li><p>TERMINATED 这个状态下表示 该线程的run方法已经执行完毕了, 基本上就等于死亡了(当时如果线程被持久持有, 可能不会被回收)</p>
-<h3 id="waiting状态及括号内容说明"><a href="#waiting状态及括号内容说明" class="headerlink" title="waiting状态及括号内容说明"></a>waiting状态及括号内容说明</h3></li>
-<li><p>sleeping: sleep状态, 调用了sleep()方法可进入此状态;</p>
-</li>
+<li>TERMINATED 这个状态下表示 该线程的run方法已经执行完毕了, 基本上就等于死亡了(当时如果线程被持久持有, 可能不会被回收)</li>
+</ol>
+<h3 id="waiting状态及括号内容说明"><a href="#waiting状态及括号内容说明" class="headerlink" title="waiting状态及括号内容说明"></a>waiting状态及括号内容说明</h3><ol>
+<li>sleeping: sleep状态, 调用了sleep()方法可进入此状态;</li>
 <li>parking: 线程挂起, 可能是在等待其他线程唤醒;</li>
-<li><p>on object monitor ： object.wait()方法可使线程进入这个状态</p>
-<h3 id="线程基本状态信息"><a href="#线程基本状态信息" class="headerlink" title="线程基本状态信息"></a>线程基本状态信息</h3></li>
-<li><p>waiting for monitor entry, 线程在等待进入临界区;一般此时线程状态都是Blocked</p>
-</li>
+<li>on object monitor ： object.wait()方法可使线程进入这个状态</li>
+</ol>
+<h3 id="线程基本状态信息"><a href="#线程基本状态信息" class="headerlink" title="线程基本状态信息"></a>线程基本状态信息</h3><ol>
+<li>waiting for monitor entry, 线程在等待进入临界区;一般此时线程状态都是Blocked</li>
 <li>waiting on condition, 等待另一个条件来唤醒自己; 此时线程状态一般为WAITING(parking)或者TIMED_WAITING(parking或者sleeping).</li>
-<li>in Object.wait(), 获取monitor之后, 又调用了wait()方法.此时线程状态一般为WAITING(on object monitor)或者TIMED_WAITING(on object monitor);<h3 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h3>使用时可以多dump几份，如果都指向同一个问题，才可以确定。查看线程所处的状态，如果某一批线程最新所在栈帧都是同一个方法的栈帧，或者都再等待同一个锁，则需要关注改方法的性能，以及过度使用锁同步的可能<h2 id="jmap"><a href="#jmap" class="headerlink" title="jmap"></a>jmap</h2><h3 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h3> jmap -dump:live,format=b,file=someFile pid<br> 将someFile 拷贝至本机（推荐）<br> jhat someFile 直至加在完毕<br> 访问localhost:7000查看信息<h3 id="补充说明-1"><a href="#补充说明-1" class="headerlink" title="补充说明"></a>补充说明</h3>jmap具有停止服务, 强制执行gc等功能, 对线上服务慎用.<h2 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h2><h3 id="用法-2"><a href="#用法-2" class="headerlink" title="用法"></a>用法</h3> netstat -anp | grep pid | sort -k5或<br> netstat -ap | grep pid |sort -k5<br> 区别：-n打印的是ip，不加的-n打印机器名<br> sort -k5是按照所连接的其他机器ip排序，从而达到将相同ip聚合到一起便于观察的目的<h3 id="打印信息含义"><a href="#打印信息含义" class="headerlink" title="打印信息含义"></a>打印信息含义</h3>具体请参考 <a href="http://11376164.blog.51cto.com/11366164/1795032" target="_blank" rel="external">链接</a></li>
+<li>in Object.wait(), 获取monitor之后, 又调用了wait()方法.此时线程状态一般为WAITING(on object monitor)或者TIMED_WAITING(on object monitor);</li>
+</ol>
+<h3 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h3><p>使用时可以多dump几份，如果都指向同一个问题，才可以确定。查看线程所处的状态，如果某一批线程最新所在栈帧都是同一个方法的栈帧，或者都再等待同一个锁，则需要关注改方法的性能，以及过度使用锁同步的可能</p>
+<h2 id="jmap"><a href="#jmap" class="headerlink" title="jmap"></a>jmap</h2><h3 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h3><pre><code>jmap -dump:live,format=b,file=someFile pid
+将someFile 拷贝至本机（推荐）
+jhat someFile 直至加在完毕
+访问localhost:7000查看信息
+</code></pre><h3 id="补充说明-1"><a href="#补充说明-1" class="headerlink" title="补充说明"></a>补充说明</h3><p>jmap具有停止服务, 强制执行gc等功能, 对线上服务慎用.</p>
+<h2 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h2><h3 id="用法-2"><a href="#用法-2" class="headerlink" title="用法"></a>用法</h3><pre><code>netstat -anp | grep pid | sort -k5或
+netstat -ap | grep pid |sort -k5
+区别：-n打印的是ip，不加的-n打印机器名
+sort -k5是按照所连接的其他机器ip排序，从而达到将相同ip聚合到一起便于观察的目的
+</code></pre><h3 id="打印信息含义"><a href="#打印信息含义" class="headerlink" title="打印信息含义"></a>打印信息含义</h3><p>具体请参考 <a href="http://11376164.blog.51cto.com/11366164/1795032" target="_blank" rel="external">tcp连接的几种状态</a></p>
+<ol>
+<li>ESTABLISHED：(Connection established.)代表一个打开的连接</li>
+<li>TIME-WAIT：(In 2 MSL (twice the maximum segment length) quiet wait after close. )等待足够的时间以确保远程TCP接收到连接中断请求的确认 — 常见于客户端</li>
+<li>CLOSE-WAIT：等待从本地用户发来的连接中断请求，常见于服务端</li>
 </ol>
 
           
@@ -1439,7 +1757,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1450,7 +1768,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1461,7 +1779,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
