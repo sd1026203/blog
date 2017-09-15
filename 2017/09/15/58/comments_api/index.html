@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="入口请求 url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式 先说一下返回值的总体格式如下: { “data”: null,    &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    }">
+<meta name="description" content="入口请求 url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式 先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    }">
 <meta name="keywords" content="58">
 <meta property="og:type" content="article">
 <meta property="og:title" content="评论接口">
 <meta property="og:url" content="sd1026203.github.io/2017/09/15/58/comments_api/index.html">
 <meta property="og:site_name" content="高山仰止,景行行止">
-<meta property="og:description" content="入口请求 url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式 先说一下返回值的总体格式如下: { “data”: null,    &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    }">
-<meta property="og:updated_time" content="2017-09-15T06:36:49.596Z">
+<meta property="og:description" content="入口请求 url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式 先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    }">
+<meta property="og:updated_time" content="2017-09-15T07:00:22.761Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="评论接口">
-<meta name="twitter:description" content="入口请求 url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式 先说一下返回值的总体格式如下: { “data”: null,    &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    }">
+<meta name="twitter:description" content="入口请求 url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式 先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    }">
 
 
 
@@ -363,14 +363,16 @@
 <p>是否登录标志: isLogin, 1为已经登录, 0为未登录</p>
 <p><strong>评论相关的返回值格式</strong></p>
 <p>先说一下返回值的总体格式如下:</p>
-<p>{ “data”: null,</p>
-<pre>   "baseResponse": {
+<pre>
+{ "data": null,
+
+   "baseResponse": {
        "status": 0,
        "message": "成功"
    }
+}
 </pre>
 
-<p>}</p>
 <p>Data为具体返回值, 下面会罗列各个接口的返回data baseResponse为状态码, 只有status为0的是正常返回</p>
 <p><strong>评论前获取识别码</strong></p>
 <p>点击输入框时, 应调用此接口, 接口返回字符串, 该字符串在新增评论时应作为参数回传, 有时效为1小时</p>
@@ -380,8 +382,9 @@
 <p>返回值: string</p>
 <p><strong>新增评论</strong></p>
 <p>用户新增评论 url : /pinglun/addNewComment method: Post 参数: addCommentModel</p>
-<p>{</p>
-<pre>   "entityTitle": null, //标题不能为空
+<pre>
+{
+   "entityTitle": null, //标题不能为空
    "content": null, //评论内容不能为空, 最少1个字, 最多512
    "user": null,  //评论人不能为空
    "toUser": null, //被评论人
@@ -391,24 +394,27 @@
    "checkStatus": null,//传null
    "rejectReason": null,//传null
    "validCode": null  //识别码不能为空
+}
 </pre>
 
-<p>}</p>
 <p>返回值: Long, 评论ID</p>
 <p><strong>点赞</strong></p>
 <p>对一条评论点赞 url: /pinglun/likeComment method: post 参数likeCommentModel</p>
-<p>{</p>
-<pre>   "user": null,  //用户
+<pre> 
+{
+  "user": null,  //用户
    "commentID": null,//评论ID不能为空
    "machineID": null//机器码不能为空
+}
 </pre>
 
-<p>}</p>
 <p>返回值: Integer, 目前该评论点赞数</p>
 <p><strong>获取热门评论</strong></p>
 <p>url: /pinglun/getHotComments method: get 参数: queryHotCommentsModel { “businessID”:null,//业务线ID “entityID”:null,//文章ID “machineID”:null//机器码 }</p>
-<p>返回值: APPCommentModel列表: [</p>
-<pre>   {
+<p>返回值: APPCommentModel列表: </p>
+<pre> 
+[
+  {
        "entityTitle": null, //文章标题
        "content": null,//评论内容
        "user": null,//评论人
@@ -425,22 +431,24 @@
        "purchaseNote": null,//额外信息, 暂时没用
        "ifLiked": null //是否点过赞
    }
+]
 </pre>
 
-<p>]</p>
 <p><strong>获取一般评论</strong></p>
 <p>url:/pinglun/getComments</p>
-<p>method: get 参数: queryCommentsModel {</p>
-<pre>   "businessID": null,
+<p>method: get 参数: queryCommentsModel</p>
+<pre>
+{
+   "businessID": null,
    "entityID": null,
    "pageNum": null, 页数最小为1
    "pageSize": null, 每页最少1条,最多20条
    "partnerID": null, 不能为空, 如果是查询一级评论请传0L
    "machineID": null手机ID不能为空
+}
 </pre>
 
-<p>}</p>
-<p>返回时: 同获取热门评论111</p>
+<p>返回时: 同获取热门评论</p>
 
       
     </div>
