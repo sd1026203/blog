@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="入口请求 url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式 先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    }">
+<meta name="description" content="入口请求url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    } }">
 <meta name="keywords" content="58">
 <meta property="og:type" content="article">
 <meta property="og:title" content="评论接口">
 <meta property="og:url" content="sd1026203.github.io/2017/09/15/58/comments_api/index.html">
 <meta property="og:site_name" content="高山仰止,景行行止">
-<meta property="og:description" content="入口请求 url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式 先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    }">
-<meta property="og:updated_time" content="2017-09-15T07:00:22.761Z">
+<meta property="og:description" content="入口请求url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    } }">
+<meta property="og:updated_time" content="2017-09-15T07:02:17.450Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="评论接口">
-<meta name="twitter:description" content="入口请求 url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式 先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    }">
+<meta name="twitter:description" content="入口请求url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    } }">
 
 
 
@@ -356,13 +356,11 @@
       
 
       
-        <p><strong>入口请求</strong></p>
-<p>url: /pinglun</p>
+        <h2 id="入口请求"><a href="#入口请求" class="headerlink" title="入口请求"></a>入口请求</h2><p>url: /pinglun</p>
 <p>跳转模板: pinglun</p>
 <p>传入参数; cityid, channel</p>
 <p>是否登录标志: isLogin, 1为已经登录, 0为未登录</p>
-<p><strong>评论相关的返回值格式</strong></p>
-<p>先说一下返回值的总体格式如下:</p>
+<h2 id="评论相关的返回值格式"><a href="#评论相关的返回值格式" class="headerlink" title="评论相关的返回值格式"></a>评论相关的返回值格式</h2><p>先说一下返回值的总体格式如下:</p>
 <pre>
 { "data": null,
 
@@ -374,14 +372,12 @@
 </pre>
 
 <p>Data为具体返回值, 下面会罗列各个接口的返回data baseResponse为状态码, 只有status为0的是正常返回</p>
-<p><strong>评论前获取识别码</strong></p>
-<p>点击输入框时, 应调用此接口, 接口返回字符串, 该字符串在新增评论时应作为参数回传, 有时效为1小时</p>
+<h2 id="评论前获取识别码"><a href="#评论前获取识别码" class="headerlink" title="评论前获取识别码"></a>评论前获取识别码</h2><p>点击输入框时, 应调用此接口, 接口返回字符串, 该字符串在新增评论时应作为参数回传, 有时效为1小时</p>
 <p>url: /pinglun/getValidCodeBeforeAddNewComment</p>
 <p>method: get</p>
 <p>参数: userid, 不能为空</p>
 <p>返回值: string</p>
-<p><strong>新增评论</strong></p>
-<p>用户新增评论 url : /pinglun/addNewComment method: Post 参数: addCommentModel</p>
+<h2 id="新增评论"><a href="#新增评论" class="headerlink" title="新增评论"></a>新增评论</h2><p>用户新增评论 url : /pinglun/addNewComment method: Post 参数: addCommentModel</p>
 <pre>
 {
    "entityTitle": null, //标题不能为空
@@ -398,8 +394,7 @@
 </pre>
 
 <p>返回值: Long, 评论ID</p>
-<p><strong>点赞</strong></p>
-<p>对一条评论点赞 url: /pinglun/likeComment method: post 参数likeCommentModel</p>
+<h2 id="点赞"><a href="#点赞" class="headerlink" title="点赞"></a>点赞</h2><p>对一条评论点赞 url: /pinglun/likeComment method: post 参数likeCommentModel</p>
 <pre> 
 {
   "user": null,  //用户
@@ -409,8 +404,7 @@
 </pre>
 
 <p>返回值: Integer, 目前该评论点赞数</p>
-<p><strong>获取热门评论</strong></p>
-<p>url: /pinglun/getHotComments method: get 参数: queryHotCommentsModel { “businessID”:null,//业务线ID “entityID”:null,//文章ID “machineID”:null//机器码 }</p>
+<h2 id="获取热门评论"><a href="#获取热门评论" class="headerlink" title="获取热门评论"></a>获取热门评论</h2><p>url: /pinglun/getHotComments method: get 参数: queryHotCommentsModel { “businessID”:null,//业务线ID “entityID”:null,//文章ID “machineID”:null//机器码 }</p>
 <p>返回值: APPCommentModel列表: </p>
 <pre> 
 [
@@ -434,8 +428,7 @@
 ]
 </pre>
 
-<p><strong>获取一般评论</strong></p>
-<p>url:/pinglun/getComments</p>
+<h2 id="获取一般评论"><a href="#获取一般评论" class="headerlink" title="获取一般评论"></a>获取一般评论</h2><p>url:/pinglun/getComments</p>
 <p>method: get 参数: queryCommentsModel</p>
 <pre>
 {
@@ -546,8 +539,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -609,6 +611,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#入口请求"><span class="nav-number">1.</span> <span class="nav-text">入口请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">2.</span> <span class="nav-text">评论相关的返回值格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论前获取识别码"><span class="nav-number">3.</span> <span class="nav-text">评论前获取识别码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增评论"><span class="nav-number">4.</span> <span class="nav-text">新增评论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点赞"><span class="nav-number">5.</span> <span class="nav-text">点赞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取热门评论"><span class="nav-number">6.</span> <span class="nav-text">获取热门评论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取一般评论"><span class="nav-number">7.</span> <span class="nav-text">获取一般评论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
