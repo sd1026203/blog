@@ -97,7 +97,7 @@
 <meta property="og:url" content="sd1026203.github.io/2017/09/15/58/comments_api/index.html">
 <meta property="og:site_name" content="高山仰止,景行行止">
 <meta property="og:description" content="入口请求url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    } }">
-<meta property="og:updated_time" content="2017-09-19T10:08:36.789Z">
+<meta property="og:updated_time" content="2017-09-19T10:11:58.537Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="评论接口">
 <meta name="twitter:description" content="入口请求url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    } }">
@@ -382,8 +382,8 @@
 {
    "entityTitle": null, //标题不能为空
    "content": null, //评论内容不能为空, 最少1个字, 最多512
-   "user": null,  //评论人不能为空
-   "toUser": null, //被评论人
+   "user": null,  //评论人, 后台获取
+   "toUser": null, //被评论人, 前端传
    "partnerID": null,   //父评论ID
    "businessID": null,   //业务线ID, 头条为1
    "entityID": null, //文章ID不能为空
@@ -454,7 +454,7 @@
 ]
 </pre>
 
-<h2 id="User对象"><a href="#User对象" class="headerlink" title="User对象"></a>User对象</h2><p>{<br>    “id”: null,            //用户ID, 不能为空<br>    “uname”: null,   //用户名称, 不能为空<br>    “headImg”: null,//用户头像<br>    “uip”: null          //用户IP<br>}</p>
+<h2 id="User对象"><a href="#User对象" class="headerlink" title="User对象"></a>User对象</h2><p>{<br>    “id”: null,            //用户ID, 不能为空<br>    “uname”: null,   //用户名称, 不能为空<br>    “headImg”: null,//用户头像, 有就传, 没有不传<br>    “uip”: null          //用户IP<br>}</p>
 
       
     </div>

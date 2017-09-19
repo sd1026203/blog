@@ -387,8 +387,8 @@
 {
    "entityTitle": null, //标题不能为空
    "content": null, //评论内容不能为空, 最少1个字, 最多512
-   "user": null,  //评论人不能为空
-   "toUser": null, //被评论人
+   "user": null,  //评论人, 后台获取
+   "toUser": null, //被评论人, 前端传
    "partnerID": null,   //父评论ID
    "businessID": null,   //业务线ID, 头条为1
    "entityID": null, //文章ID不能为空
@@ -459,7 +459,7 @@
 ]
 </pre>
 
-<h2 id="User对象"><a href="#User对象" class="headerlink" title="User对象"></a>User对象</h2><p>{<br>    “id”: null,            //用户ID, 不能为空<br>    “uname”: null,   //用户名称, 不能为空<br>    “headImg”: null,//用户头像<br>    “uip”: null          //用户IP<br>}</p>
+<h2 id="User对象"><a href="#User对象" class="headerlink" title="User对象"></a>User对象</h2><p>{<br>    “id”: null,            //用户ID, 不能为空<br>    “uname”: null,   //用户名称, 不能为空<br>    “headImg”: null,//用户头像, 有就传, 没有不传<br>    “uip”: null          //用户IP<br>}</p>
 
           
         
