@@ -458,6 +458,9 @@
         }
 ]
 </pre>
+
+<h2 id="User对象"><a href="#User对象" class="headerlink" title="User对象"></a>User对象</h2><p>{<br>    “id”: null,            //用户ID, 不能为空<br>    “uname”: null,   //用户名称, 不能为空<br>    “headImg”: null,//用户头像<br>    “uip”: null          //用户IP<br>}</p>
+
           
         
       
@@ -869,6 +872,155 @@ sort -k5是按照所连接的其他机器ip排序，从而达到将相同ip聚�
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="sd1026203.github.io/2017/04/24/lock/reentrantlock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="葛伟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="高山仰止,景行行止">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/24/lock/reentrantlock/" itemprop="url">
+                  可重入锁
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-24T00:00:00+08:00">
+                2017-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/锁/" itemprop="url" rel="index">
+                    <span itemprop="name">锁</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文中所说的可重入锁是广义上的, 不单指Java中的ReentrantLock.<br>可重入锁，也叫做递归锁，指的是同一线程 外层函数获得锁之后 ，内层递归函数仍然有获取该锁的代码，但不受影响。<br>在JAVA环境下 ReentrantLock 和synchronized 都是 可重入锁.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(Thread.currentThread().getId());</div><div class="line">		set();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(Thread.currentThread().getId());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">		get();</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Test ss=<span class="keyword">new</span> Test();</div><div class="line">		<span class="keyword">new</span> Thread(ss).start();</div><div class="line">		<span class="keyword">new</span> Thread(ss).start();</div><div class="line">		<span class="keyword">new</span> Thread(ss).start();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestReentrantLock</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">    ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span> </span>&#123;</div><div class="line">        lock.lock();</div><div class="line">        System.out.println(Thread.currentThread().getId());</div><div class="line">        set();</div><div class="line">        lock.unlock();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">()</span> </span>&#123;</div><div class="line">        lock.lock();</div><div class="line">        System.out.println(Thread.currentThread().getId());</div><div class="line">        lock.unlock();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        get();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        TestReentrantLock ss = <span class="keyword">new</span> TestReentrantLock();</div><div class="line">        <span class="keyword">new</span> Thread(ss).start();</div><div class="line">        <span class="keyword">new</span> Thread(ss).start();</div><div class="line">        <span class="keyword">new</span> Thread(ss).start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>两个例子最后的结果都是正确的，即 同一个线程id被连续输出两次。结果如下：</p>
+<p>Threadid: 8<br>Threadid: 8<br>Threadid: 10<br>Threadid: 10<br>Threadid: 9<br>Threadid: 9</p>
+<p>可重入锁最大的作用是避免死锁.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpinLock</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> AtomicReference&lt;Thread&gt; owner =<span class="keyword">new</span> AtomicReference&lt;&gt;();</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		<span class="keyword">while</span>(!owner.compareAndSet(<span class="keyword">null</span>, current))&#123;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span> <span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		owner.compareAndSet(current, <span class="keyword">null</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对于自旋锁来说，<br>1、若有同一线程两调用lock() ，会导致第二次调用lock位置进行自旋，产生了死锁<br>说明这个锁并不是可重入的。（在lock函数内，应验证线程是否为已经获得锁的线程）<br>2、若1问题已经解决，当unlock（）第一次调用时，就已经将锁释放了。实际上不应释放锁。<br>（采用计数次进行统计）<br>修改之后，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpinLock1</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> AtomicReference&lt;Thread&gt; owner =<span class="keyword">new</span> AtomicReference&lt;&gt;();</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> count =<span class="number">0</span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		<span class="keyword">if</span>(current==owner.get()) &#123;</div><div class="line">			count++;</div><div class="line">			<span class="keyword">return</span> ;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">while</span>(!owner.compareAndSet(<span class="keyword">null</span>, current))&#123;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span> <span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		<span class="keyword">if</span>(current==owner.get())&#123;</div><div class="line">			<span class="keyword">if</span>(count!=<span class="number">0</span>)&#123;</div><div class="line">				count--;</div><div class="line">			&#125;<span class="keyword">else</span>&#123;</div><div class="line">				owner.compareAndSet(current, <span class="keyword">null</span>);</div><div class="line">			&#125;</div><div class="line"></div><div class="line">		&#125;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>该自旋锁即为可重入锁。 </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="sd1026203.github.io/2017/04/24/memmodel/memmodel_base/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -998,155 +1150,6 @@ sort -k5是按照所连接的其他机器ip排序，从而达到将相同ip聚�
 <li>传递性：如果A happens- before B，且B happens- before C，那么A happens- before C。</li>
 </ol>
 <p>注意，两个操作之间具有happens-before关系，并不意味着前一个操作必须要在后一个操作之前执行！happens-before仅仅要求前一个操作（执行的结果）对后一个操作可见，且前一个操作按顺序排在第二个操作之前（the first is visible to and ordered before the second）。happens- before的定义很微妙，后文会具体说明happens-before为什么要这么定义。<br>happens-before与JMM的关系如下图所示：<br><img src="https://www.github.com/sd1026203/img/raw/master/1493030836681.jpg" alt="enter description here"><br>如上图所示，一个happens-before规则通常对应于多个编译器和处理器重排序规则。对于java程序员来说，happens-before规则简单易懂，它避免java程序员为了理解JMM提供的内存可见性保证而去学习复杂的重排序规则以及这些规则的具体实现。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="sd1026203.github.io/2017/04/24/lock/reentrantlock/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="葛伟">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="高山仰止,景行行止">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/24/lock/reentrantlock/" itemprop="url">
-                  可重入锁
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-24T00:00:00+08:00">
-                2017-04-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/锁/" itemprop="url" rel="index">
-                    <span itemprop="name">锁</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本文中所说的可重入锁是广义上的, 不单指Java中的ReentrantLock.<br>可重入锁，也叫做递归锁，指的是同一线程 外层函数获得锁之后 ，内层递归函数仍然有获取该锁的代码，但不受影响。<br>在JAVA环境下 ReentrantLock 和synchronized 都是 可重入锁.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(Thread.currentThread().getId());</div><div class="line">		set();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(Thread.currentThread().getId());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">		get();</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Test ss=<span class="keyword">new</span> Test();</div><div class="line">		<span class="keyword">new</span> Thread(ss).start();</div><div class="line">		<span class="keyword">new</span> Thread(ss).start();</div><div class="line">		<span class="keyword">new</span> Thread(ss).start();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestReentrantLock</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">    ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span> </span>&#123;</div><div class="line">        lock.lock();</div><div class="line">        System.out.println(Thread.currentThread().getId());</div><div class="line">        set();</div><div class="line">        lock.unlock();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">()</span> </span>&#123;</div><div class="line">        lock.lock();</div><div class="line">        System.out.println(Thread.currentThread().getId());</div><div class="line">        lock.unlock();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        get();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        TestReentrantLock ss = <span class="keyword">new</span> TestReentrantLock();</div><div class="line">        <span class="keyword">new</span> Thread(ss).start();</div><div class="line">        <span class="keyword">new</span> Thread(ss).start();</div><div class="line">        <span class="keyword">new</span> Thread(ss).start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>两个例子最后的结果都是正确的，即 同一个线程id被连续输出两次。结果如下：</p>
-<p>Threadid: 8<br>Threadid: 8<br>Threadid: 10<br>Threadid: 10<br>Threadid: 9<br>Threadid: 9</p>
-<p>可重入锁最大的作用是避免死锁.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpinLock</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> AtomicReference&lt;Thread&gt; owner =<span class="keyword">new</span> AtomicReference&lt;&gt;();</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		<span class="keyword">while</span>(!owner.compareAndSet(<span class="keyword">null</span>, current))&#123;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span> <span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		owner.compareAndSet(current, <span class="keyword">null</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>对于自旋锁来说，<br>1、若有同一线程两调用lock() ，会导致第二次调用lock位置进行自旋，产生了死锁<br>说明这个锁并不是可重入的。（在lock函数内，应验证线程是否为已经获得锁的线程）<br>2、若1问题已经解决，当unlock（）第一次调用时，就已经将锁释放了。实际上不应释放锁。<br>（采用计数次进行统计）<br>修改之后，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpinLock1</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> AtomicReference&lt;Thread&gt; owner =<span class="keyword">new</span> AtomicReference&lt;&gt;();</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> count =<span class="number">0</span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		<span class="keyword">if</span>(current==owner.get()) &#123;</div><div class="line">			count++;</div><div class="line">			<span class="keyword">return</span> ;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">while</span>(!owner.compareAndSet(<span class="keyword">null</span>, current))&#123;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span> <span class="params">()</span></span>&#123;</div><div class="line">		Thread current = Thread.currentThread();</div><div class="line">		<span class="keyword">if</span>(current==owner.get())&#123;</div><div class="line">			<span class="keyword">if</span>(count!=<span class="number">0</span>)&#123;</div><div class="line">				count--;</div><div class="line">			&#125;<span class="keyword">else</span>&#123;</div><div class="line">				owner.compareAndSet(current, <span class="keyword">null</span>);</div><div class="line">			&#125;</div><div class="line"></div><div class="line">		&#125;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>该自旋锁即为可重入锁。 </p>
 
           
         
