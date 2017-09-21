@@ -376,7 +376,7 @@
 }
 </pre>
 
-<p>Data为具体返回值, 下面会罗列各个接口的返回data baseResponse为状态码, 只有status为0的是正常返回</p>
+<p>Data为具体返回值, 下面会罗列各个接口的返回data baseResponse为状态码<br>只有status为0的是正常返回, 1为系统异常, 3为参数异常, 4为业务异常, 5猎人审核异常</p>
 <h2 id="评论前获取识别码"><a href="#评论前获取识别码" class="headerlink" title="评论前获取识别码"></a>评论前获取识别码</h2><p>点击输入框时, 应调用此接口, 接口返回字符串, 该字符串在新增评论时应作为参数回传, 有时效为1小时</p>
 <p>url: /pinglun/getValidCodeBeforeAddNewComment</p>
 <p>method: get</p>

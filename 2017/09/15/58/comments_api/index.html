@@ -97,7 +97,7 @@
 <meta property="og:url" content="sd1026203.github.io/2017/09/15/58/comments_api/index.html">
 <meta property="og:site_name" content="高山仰止,景行行止">
 <meta property="og:description" content="入口请求url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    } }">
-<meta property="og:updated_time" content="2017-09-21T06:16:51.009Z">
+<meta property="og:updated_time" content="2017-09-21T10:50:49.527Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="评论接口">
 <meta name="twitter:description" content="入口请求url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    } }">
@@ -371,7 +371,7 @@
 }
 </pre>
 
-<p>Data为具体返回值, 下面会罗列各个接口的返回data baseResponse为状态码, 只有status为0的是正常返回</p>
+<p>Data为具体返回值, 下面会罗列各个接口的返回data baseResponse为状态码<br>只有status为0的是正常返回, 1为系统异常, 3为参数异常, 4为业务异常, 5猎人审核异常</p>
 <h2 id="评论前获取识别码"><a href="#评论前获取识别码" class="headerlink" title="评论前获取识别码"></a>评论前获取识别码</h2><p>点击输入框时, 应调用此接口, 接口返回字符串, 该字符串在新增评论时应作为参数回传, 有时效为1小时</p>
 <p>url: /pinglun/getValidCodeBeforeAddNewComment</p>
 <p>method: get</p>
