@@ -97,7 +97,7 @@
 <meta property="og:url" content="sd1026203.github.io/2017/09/15/58/comments_api/index.html">
 <meta property="og:site_name" content="高山仰止,景行行止">
 <meta property="og:description" content="入口请求url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    } }">
-<meta property="og:updated_time" content="2017-09-19T10:11:58.537Z">
+<meta property="og:updated_time" content="2017-09-21T05:56:04.780Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="评论接口">
 <meta name="twitter:description" content="入口请求url: /pinglun 跳转模板: pinglun 传入参数; cityid, channel 是否登录标志: isLogin, 1为已经登录, 0为未登录 评论相关的返回值格式先说一下返回值的总体格式如下:  { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;status&quot;: 0,        &quot;message&quot;: &quot;成功&quot;    } }">
@@ -454,6 +454,33 @@
 ]
 </pre>
 
+<h2 id="根据ID获取评论"><a href="#根据ID获取评论" class="headerlink" title="根据ID获取评论"></a>根据ID获取评论</h2><p>url: pinglun/getCommentsByIDs<br>method: get<br>参数: commentIDs  评论ID<br>返回值: 同获取热门评论</p>
+<pre>
+[
+    {
+        "entityTitle": null,
+        "content": null,
+        "user": null,
+        "toUser": null,
+        "likeNum": null,
+        "commentaryNum": null,
+        "createdTime": null,
+        "modifiedTime": null,
+        "essencedTime": null,
+        "partnerID": null,
+        "whoLike": null,
+        "isdel": null,
+        "checkStatus": null,
+        "commentID": null,
+        "businessID": null,
+        "entityID": null,
+        "purchaseNote": null,
+        "rejectReason": null
+    }
+]
+</pre>
+
+
 <h2 id="User对象"><a href="#User对象" class="headerlink" title="User对象"></a>User对象</h2><p>{<br>    “id”: null,            //用户ID, 不能为空<br>    “uname”: null,   //用户名称, 不能为空<br>    “headImg”: null,//用户头像, 有就传, 没有不传<br>    “uip”: null          //用户IP<br>}</p>
 
       
@@ -634,7 +661,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#入口请求"><span class="nav-number">1.</span> <span class="nav-text">入口请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">2.</span> <span class="nav-text">评论相关的返回值格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论前获取识别码"><span class="nav-number">3.</span> <span class="nav-text">评论前获取识别码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增评论"><span class="nav-number">4.</span> <span class="nav-text">新增评论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点赞"><span class="nav-number">5.</span> <span class="nav-text">点赞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取热门评论"><span class="nav-number">6.</span> <span class="nav-text">获取热门评论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取一般评论"><span class="nav-number">7.</span> <span class="nav-text">获取一般评论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取评论数"><span class="nav-number">8.</span> <span class="nav-text">获取评论数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User对象"><span class="nav-number">9.</span> <span class="nav-text">User对象</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#入口请求"><span class="nav-number">1.</span> <span class="nav-text">入口请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">2.</span> <span class="nav-text">评论相关的返回值格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论前获取识别码"><span class="nav-number">3.</span> <span class="nav-text">评论前获取识别码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增评论"><span class="nav-number">4.</span> <span class="nav-text">新增评论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点赞"><span class="nav-number">5.</span> <span class="nav-text">点赞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取热门评论"><span class="nav-number">6.</span> <span class="nav-text">获取热门评论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取一般评论"><span class="nav-number">7.</span> <span class="nav-text">获取一般评论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取评论数"><span class="nav-number">8.</span> <span class="nav-text">获取评论数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据ID获取评论"><span class="nav-number">9.</span> <span class="nav-text">根据ID获取评论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User对象"><span class="nav-number">10.</span> <span class="nav-text">User对象</span></a></li></ol></div>
             
 
           </div>
