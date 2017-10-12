@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="评论相关的返回值格式先说一下返回值的总体格式如下: { “data”: null,    “baseResponse”: {       “status”: 0,       “message”: “成功”   }}Data为具体返回值, 下面会罗列各个接口的返回data baseResponse为状态码只有status为0的是正常返回, 1为系统异常, 3为参数异常, 4为业务异常, 5猎人审核">
+<meta name="description" content="maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;gt;">
 <meta name="keywords" content="58">
 <meta property="og:type" content="article">
 <meta property="og:title" content="圈子接口">
 <meta property="og:url" content="sd1026203.github.io/2017/10/12/58/圈子接口/index.html">
 <meta property="og:site_name" content="高山仰止,景行行止">
-<meta property="og:description" content="评论相关的返回值格式先说一下返回值的总体格式如下: { “data”: null,    “baseResponse”: {       “status”: 0,       “message”: “成功”   }}Data为具体返回值, 下面会罗列各个接口的返回data baseResponse为状态码只有status为0的是正常返回, 1为系统异常, 3为参数异常, 4为业务异常, 5猎人审核">
-<meta property="og:updated_time" content="2017-10-12T02:54:30.614Z">
+<meta property="og:description" content="maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;gt;">
+<meta property="og:updated_time" content="2017-10-12T12:58:21.016Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="圈子接口">
-<meta name="twitter:description" content="评论相关的返回值格式先说一下返回值的总体格式如下: { “data”: null,    “baseResponse”: {       “status”: 0,       “message”: “成功”   }}Data为具体返回值, 下面会罗列各个接口的返回data baseResponse为状态码只有status为0的是正常返回, 1为系统异常, 3为参数异常, 4为业务异常, 5猎人审核">
+<meta name="twitter:description" content="maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;gt;">
 
 
 
@@ -356,9 +356,57 @@
       
 
       
-        <h2 id="评论相关的返回值格式"><a href="#评论相关的返回值格式" class="headerlink" title="评论相关的返回值格式"></a>评论相关的返回值格式</h2><p>先说一下返回值的总体格式如下:</p>
-<p><pre><br>{ “data”: null,</pre></p>
-<p>   “baseResponse”: {<br>       “status”: 0,<br>       “message”: “成功”<br>   }<br>}<br><br>Data为具体返回值, 下面会罗列各个接口的返回data baseResponse为状态码<br>只有status为0的是正常返回, 1为系统异常, 3为参数异常, 4为业务异常, 5猎人审核异常</p>
+        <h2 id="maven依赖"><a href="#maven依赖" class="headerlink" title="maven依赖"></a>maven依赖</h2><pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.bj58.spider&lt;/groupId&gt;
+    &lt;artifactId&gt;com.bj58.spider.pinglun.contract&lt;/artifactId&gt;
+    &lt;version&gt;0.0.5-SNAPSHOT&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><h2 id="评论相关的返回值格式"><a href="#评论相关的返回值格式" class="headerlink" title="评论相关的返回值格式"></a>评论相关的返回值格式</h2><p>先说一下返回值的总体格式如下:</p>
+<pre>
+{ "data": null,
+
+   "baseResponse": {
+       "status": 0,
+       "message": "成功"
+   }
+}
+</pre>
+
+<p>Data为具体返回值, 下面会罗列各个接口的返回data baseResponse为状态码<br>只有status为0的是正常返回, 1为系统异常, 3为参数异常, 4为业务异常, 5猎人审核异常</p>
+<h2 id="User对象"><a href="#User对象" class="headerlink" title="User对象"></a>User对象</h2><pre>
+{
+    "id": null,       //用户ID, 不能为空
+    "uname": null,    //用户名称, 不能为空
+    "headImg": null,  //用户头像, 有就传, 没有不传
+    "uip": null       //用户IP
+}
+</pre>
+
+<h2 id="圈子列表"><a href="#圈子列表" class="headerlink" title="圈子列表"></a>圈子列表</h2><p>请求方法: CircleService.getCircles(QueryCirclesModel queryCirclesModel)</p>
+<p>参数queryCirclesModel:</p>
+<pre>
+{
+    "businessID": null, //业务线ID
+    "circleID": null,   //圈子ID, 用于分页查询, 查询时输入上次查询的最后一个ID, 首次查询传null
+    "pageSize": null    //分页大小
+}
+</pre>
+
+<p>返回值:List<appcirclemodel><br>APPCircleModel格式为:</appcirclemodel></p>
+<pre>
+{
+    "title": null,        //圈子名称
+    "description": null,  //圈子描述
+    "pic": null,          //圈子图片
+    "businessID": null,   //业务线ID
+    "circleID": null      //圈子ID
+}
+</pre>
+
+<h2 id="关注圈子"><a href="#关注圈子" class="headerlink" title="关注圈子"></a>关注圈子</h2><p>请求方法: CircleService.followCircle(APPFollowCircleModel appFollowCircleModel)<br>参数appFollowCircleModel:</p>
+<p><pre><br>{<br>    “circleID”: null,   //圈子ID<br>    “title”: null,      //圈子名称<br>    “user”: null,       //关注用户, 为User对象<br>    “businessID”: null  //业务线ID<br>}<br></pre><br>返回值: Boolean</p>
+<h2 id="关注圈子列表"><a href="#关注圈子列表" class="headerlink" title="关注圈子列表"></a>关注圈子列表</h2><p>请求方法: CircleService.whoFollowsCircle(APPWhoFollowsCircleModel appWhoFollowsCircleModel);<br>参数appWhoFollowsCircleModel:</p>
+<p><pre><br>{<br>    “circleID”: null,    //圈子ID<br>    “businessID”: null,  //业务线ID<br>    “pageNum”: null,     //第几页<br>    “pageSize”: null     //每页几条数据<br>}<br></pre><br>返回值: List<user></user></p>
 
       
     </div>
@@ -538,7 +586,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">1.</span> <span class="nav-text">评论相关的返回值格式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖"><span class="nav-number">1.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">2.</span> <span class="nav-text">评论相关的返回值格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User对象"><span class="nav-number">3.</span> <span class="nav-text">User对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表"><span class="nav-number">4.</span> <span class="nav-text">圈子列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子"><span class="nav-number">5.</span> <span class="nav-text">关注圈子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子列表"><span class="nav-number">6.</span> <span class="nav-text">关注圈子列表</span></a></li></ol></div>
             
 
           </div>
