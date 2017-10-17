@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;gt;">
+<meta name="description" content="综述maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;g">
 <meta name="keywords" content="58">
 <meta property="og:type" content="article">
 <meta property="og:title" content="圈子接口">
 <meta property="og:url" content="sd1026203.github.io/2017/10/12/58/圈子接口/index.html">
 <meta property="og:site_name" content="高山仰止,景行行止">
-<meta property="og:description" content="maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;gt;">
-<meta property="og:updated_time" content="2017-10-17T09:06:32.270Z">
+<meta property="og:description" content="综述maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;g">
+<meta property="og:updated_time" content="2017-10-17T09:47:32.289Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="圈子接口">
-<meta name="twitter:description" content="maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;gt;">
+<meta name="twitter:description" content="综述maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;g">
 
 
 
@@ -356,7 +356,7 @@
       
 
       
-        <h2 id="maven依赖"><a href="#maven依赖" class="headerlink" title="maven依赖"></a>maven依赖</h2><pre><code>&lt;dependency&gt;
+        <h1 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h1><h2 id="maven依赖"><a href="#maven依赖" class="headerlink" title="maven依赖"></a>maven依赖</h2><pre><code>&lt;dependency&gt;
     &lt;groupId&gt;com.bj58.spider&lt;/groupId&gt;
     &lt;artifactId&gt;com.bj58.spider.pinglun.contract&lt;/artifactId&gt;
     &lt;version&gt;0.0.5-SNAPSHOT&lt;/version&gt;
@@ -382,13 +382,23 @@
 }
 </pre>
 
-<h2 id="圈子列表"><a href="#圈子列表" class="headerlink" title="圈子列表"></a>圈子列表</h2><p>请求方法: CircleService.getCircles(QueryCirclesModel queryCirclesModel)</p>
+<h1 id="圈子API"><a href="#圈子API" class="headerlink" title="圈子API"></a>圈子API</h1><h2 id="圈子列表-分页查询"><a href="#圈子列表-分页查询" class="headerlink" title="圈子列表 - 分页查询"></a>圈子列表 - 分页查询</h2><p>请求方法: CircleService.getCircles(QueryCirclesModel queryCirclesModel)</p>
 <p>参数queryCirclesModel:</p>
 <pre>
 {
     "businessID": null, //业务线ID
     "circleID": null,   //圈子ID, 用于分页查询, 查询时输入上次查询的最后一个ID, 首次查询传null
     "pageSize": null    //分页大小
+}
+</pre>
+
+
+<h2 id="圈子列表-根据圈子ID查询"><a href="#圈子列表-根据圈子ID查询" class="headerlink" title="圈子列表 - 根据圈子ID查询"></a>圈子列表 - 根据圈子ID查询</h2><p>请求方法: CircleService.getCircles(APPQueryCirclesByRowKeyAndColKeysModel appQueryCirclesByRowKeyAndColKeysModel)</p>
+<p>参数APPQueryCirclesByRowKeyAndColKeysModel:</p>
+<pre>
+{
+    "businessID": null, //业务线ID
+    "circleIDs": []     //圈子ID集合
 }
 </pre>
 
@@ -433,7 +443,8 @@
 }
 </pre>
 
-<h2 id="发表动态"><a href="#发表动态" class="headerlink" title="发表动态"></a>发表动态</h2><p>请求方法: TopicService.APPAddTopicModel(APPAddTopicModel appAddTopicModel)</p>
+
+<h1 id="主题API"><a href="#主题API" class="headerlink" title="主题API"></a>主题API</h1><h2 id="发表主题"><a href="#发表主题" class="headerlink" title="发表主题"></a>发表主题</h2><p>请求方法: TopicService.APPAddTopicModel(APPAddTopicModel appAddTopicModel)</p>
 <p>参数appAddTopicModel</p>
 <pre>
 {
@@ -722,7 +733,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖"><span class="nav-number">1.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">2.</span> <span class="nav-text">评论相关的返回值格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User对象"><span class="nav-number">3.</span> <span class="nav-text">User对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表"><span class="nav-number">4.</span> <span class="nav-text">圈子列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子"><span class="nav-number">5.</span> <span class="nav-text">关注圈子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发表动态"><span class="nav-number">6.</span> <span class="nav-text">发表动态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#feed流"><span class="nav-number">7.</span> <span class="nav-text">feed流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞"><span class="nav-number">8.</span> <span class="nav-text">主题点赞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞列表"><span class="nav-number">9.</span> <span class="nav-text">主题点赞列表:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">1.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖"><span class="nav-number">1.1.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">1.2.</span> <span class="nav-text">评论相关的返回值格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User对象"><span class="nav-number">1.3.</span> <span class="nav-text">User对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#圈子API"><span class="nav-number">2.</span> <span class="nav-text">圈子API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表-分页查询"><span class="nav-number">2.1.</span> <span class="nav-text">圈子列表 - 分页查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表-根据圈子ID查询"><span class="nav-number">2.2.</span> <span class="nav-text">圈子列表 - 根据圈子ID查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子"><span class="nav-number">2.3.</span> <span class="nav-text">关注圈子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主题API"><span class="nav-number">3.</span> <span class="nav-text">主题API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#发表主题"><span class="nav-number">3.1.</span> <span class="nav-text">发表主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#feed流"><span class="nav-number">3.2.</span> <span class="nav-text">feed流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞"><span class="nav-number">3.3.</span> <span class="nav-text">主题点赞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞列表"><span class="nav-number">3.4.</span> <span class="nav-text">主题点赞列表:</span></a></li></ol></li></ol></div>
             
 
           </div>
