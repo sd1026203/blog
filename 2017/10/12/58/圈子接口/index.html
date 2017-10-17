@@ -97,7 +97,7 @@
 <meta property="og:url" content="sd1026203.github.io/2017/10/12/58/圈子接口/index.html">
 <meta property="og:site_name" content="高山仰止,景行行止">
 <meta property="og:description" content="maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;gt;">
-<meta property="og:updated_time" content="2017-10-12T13:06:00.721Z">
+<meta property="og:updated_time" content="2017-10-16T06:33:24.704Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="圈子接口">
 <meta name="twitter:description" content="maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;gt;">
@@ -404,9 +404,48 @@
 </pre>
 
 <h2 id="关注圈子"><a href="#关注圈子" class="headerlink" title="关注圈子"></a>关注圈子</h2><p>请求方法: CircleService.followCircle(APPFollowCircleModel appFollowCircleModel)<br>参数appFollowCircleModel:</p>
-<p><pre><br>{<br>    “circleID”: null,   //圈子ID<br>    “title”: null,      //圈子名称<br>    “user”: null,       //关注用户, 为User对象<br>    “businessID”: null  //业务线ID<br>}<br></pre><br>返回值: Boolean</p>
-<h2 id="关注圈子列表"><a href="#关注圈子列表" class="headerlink" title="关注圈子列表"></a>关注圈子列表</h2><p>请求方法: CircleService.whoFollowsCircle(APPWhoFollowsCircleModel appWhoFollowsCircleModel);<br>参数appWhoFollowsCircleModel:</p>
-<p><pre><br>{<br>    “circleID”: null,    //圈子ID<br>    “businessID”: null,  //业务线ID<br>    “pageNum”: null,     //第几页<br>    “pageSize”: null     //每页几条数据<br>}<br></pre><br>返回值: user的List</p>
+<pre>
+{
+    "circleID": null,   //圈子ID
+    "title": null,      //圈子名称
+    "user": null,       //关注用户, 为User对象
+    "businessID": null  //业务线ID
+}
+</pre>
+返回值: Boolean
+
+## 关注圈子列表
+请求方法: CircleService.whoFollowsCircle(APPWhoFollowsCircleModel appWhoFollowsCircleModel);
+参数appWhoFollowsCircleModel:
+<pre>
+{
+    "circleID": null,    //圈子ID
+    "businessID": null,  //业务线ID
+    "pageNum": null,     //第几页
+    "pageSize": null     //每页几条数据
+}
+</pre>
+返回值: user的List
+
+## 发表动态
+请求方法: TopicService.APPAddTopicModel(APPAddTopicModel appAddTopicModel)
+
+参数appAddTopicModel
+<pre>
+{
+    "content":null,     //内容
+    "imgs":null,        //图片
+    "videos":null,      //视频
+    "user":null,        //发表用户
+    "topicID":null,     //动态ID, 新动态传null
+    "businessID":null,  //业务线ID
+    "circleID":null,    //圈子ID
+    "cities":null,      //所属城市
+    "source":null       //来源, 1:用户, 2:编辑
+}
+</pre>
+
+<p>返回值:TopicModelResponse<br>{<br>    “content”:null,     //内容<br>    “imgs”:null,        //图片<br>    “videos”:null,      //视频<br>    “user”:null,        //发表用户<br>    “createdTime”:null, //创建时间<br>    “modifiedTime”:null,//修改时间<br>    “essencedTime”:null,//加精时间<br>    “isdel”:null,       //是否被删除, 0:未删除, 1:删除<br>    “checkStatus”:null, //审核状态<br>    “topicID”:null,     //动态ID<br>    “businessID”:null,  //业务线ID<br>    “circleID”:null,    //圈子ID<br>    “rejectReason”:null,//驳回原因<br>    “cities”:null,      //城市<br>    “source”:null       //来源<br>}</p>
 
       
     </div>
@@ -586,7 +625,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖"><span class="nav-number">1.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">2.</span> <span class="nav-text">评论相关的返回值格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User对象"><span class="nav-number">3.</span> <span class="nav-text">User对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表"><span class="nav-number">4.</span> <span class="nav-text">圈子列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子"><span class="nav-number">5.</span> <span class="nav-text">关注圈子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子列表"><span class="nav-number">6.</span> <span class="nav-text">关注圈子列表</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖"><span class="nav-number">1.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">2.</span> <span class="nav-text">评论相关的返回值格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User对象"><span class="nav-number">3.</span> <span class="nav-text">User对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表"><span class="nav-number">4.</span> <span class="nav-text">圈子列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子"><span class="nav-number">5.</span> <span class="nav-text">关注圈子</span></a></li></ol></div>
             
 
           </div>
