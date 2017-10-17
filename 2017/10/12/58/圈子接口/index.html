@@ -97,7 +97,7 @@
 <meta property="og:url" content="sd1026203.github.io/2017/10/12/58/圈子接口/index.html">
 <meta property="og:site_name" content="高山仰止,景行行止">
 <meta property="og:description" content="maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;gt;">
-<meta property="og:updated_time" content="2017-10-17T06:42:07.416Z">
+<meta property="og:updated_time" content="2017-10-17T09:06:32.270Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="圈子接口">
 <meta name="twitter:description" content="maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;gt;">
@@ -449,8 +449,101 @@
 }
 </pre>
 
-<p>返回值:TopicModelResponse<br>{<br>    “content”:null,     //内容<br>    “imgs”:null,        //图片<br>    “videos”:null,      //视频<br>    “user”:null,        //发表用户<br>    “createdTime”:null, //创建时间<br>    “modifiedTime”:null,//修改时间<br>    “essencedTime”:null,//加精时间<br>    “isdel”:null,       //是否被删除, 0:未删除, 1:删除<br>    “checkStatus”:null, //审核状态<br>    “topicID”:null,     //动态ID<br>    “businessID”:null,  //业务线ID<br>    “circleID”:null,    //圈子ID<br>    “rejectReason”:null,//驳回原因<br>    “cities”:null,      //城市<br>    “source”:null       //来源<br>}</p>
+<p>返回值:TopicModelResponse</p>
+<pre>
+{
+    "content":null,     //内容
+    "imgs":null,        //图片
+    "videos":null,      //视频
+    "user":null,        //发表用户
+    "createdTime":null, //创建时间
+    "modifiedTime":null,//修改时间
+    "essencedTime":null,//加精时间
+    "isdel":null,       //是否被删除, 0:未删除, 1:删除
+    "checkStatus":null, //审核状态
+    "topicID":null,     //动态ID
+    "businessID":null,  //业务线ID
+    "circleID":null,    //圈子ID
+    "rejectReason":null,//驳回原因
+    "cities":null,      //城市
+    "source":null       //来源
+}
+</pre>
 
+<h2 id="feed流"><a href="#feed流" class="headerlink" title="feed流"></a>feed流</h2><p>请求方法: TopicService.appGetTopicModelList(APPQueryTopicModelListModel appQueryTopicModelListModel)</p>
+<p>参数: appQueryTopicModelListModel</p>
+<pre>
+{
+    "businessID": null,  //业务线ID,不能为空
+    "circleID": null,    //圈子ID, 圈子feed流添加此参数
+    "pageNum": null,     //第几页
+    "pageSize": null,    //每页几条
+    "userID": null,      //用户ID, 用户关注feed流添加此参数
+    "cities": null       //展示城市, 不能为空
+}
+
+
+返回值: 
+<pre>
+[
+    {
+        "content":null,     //内容
+        "imgs":null,        //图片
+        "videos":null,      //视频
+        "user":null,        //发表用户
+        "createdTime":null, //创建时间
+        "modifiedTime":null,//修改时间
+        "essencedTime":null,//加精时间
+        "isdel":null,       //是否被删除, 0:未删除, 1:删除
+        "checkStatus":null, //审核状态
+        "topicID":null,     //动态ID
+        "businessID":null,  //业务线ID
+        "circleID":null,    //圈子ID
+        "rejectReason":null,//驳回原因
+        "cities":null,      //城市
+        "source":null       //来源
+    }
+]
+</pre>
+
+<h2 id="主题点赞"><a href="#主题点赞" class="headerlink" title="主题点赞"></a>主题点赞</h2><p>请求方法: topicSercvice.appLikeTopic(APPLikeTopicModel appLikeTopicModel)<br>参数appLikeTopicModel</p>
+<pre>
+{
+    "userID": null,    //用户ID, 登录用户需传此参数
+    "topicID": null,   //主题ID, 不能为空
+    "imei": null,      //imei, 不能为空
+    "circleID": null,  //圈子ID, 不能为空
+    "businessID": null //业务线ID, 不能为空
+}
+</pre>
+
+<p>返回值: boolean</p>
+<h2 id="主题点赞列表"><a href="#主题点赞列表" class="headerlink" title="主题点赞列表:"></a>主题点赞列表:</h2><p>请求方法: to’pService.appGetWhoLikesTopicModel(APPQueryWhoLikesTopic appQueryWhoLikesTopic)</p>
+<p>参数: appQueryWhoLikesTopic</p>
+<pre>
+{
+    "businessID": null, //业务线ID, 不能为空
+    "circleID": null,   //圈子ID, 不能为空
+    "topicID": null,    //主题ID, 不能为空
+    "pageNum": null,    //第几页
+    "pageSize": null    //每页大小
+}
+</pre>
+
+<p>返回值:WhoLikesTopicModelResponse</p>
+<pre>
+{
+    "totalCount": null,     //点赞总数
+    "whoModels": [
+        {
+            "userID": null, //用户ID
+            "imei": null    //设备号
+        }
+    ]
+}
+</pre>
+
+</pre>
       
     </div>
 
@@ -629,7 +722,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖"><span class="nav-number">1.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">2.</span> <span class="nav-text">评论相关的返回值格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User对象"><span class="nav-number">3.</span> <span class="nav-text">User对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表"><span class="nav-number">4.</span> <span class="nav-text">圈子列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子"><span class="nav-number">5.</span> <span class="nav-text">关注圈子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发表动态"><span class="nav-number">6.</span> <span class="nav-text">发表动态</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖"><span class="nav-number">1.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">2.</span> <span class="nav-text">评论相关的返回值格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User对象"><span class="nav-number">3.</span> <span class="nav-text">User对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表"><span class="nav-number">4.</span> <span class="nav-text">圈子列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子"><span class="nav-number">5.</span> <span class="nav-text">关注圈子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发表动态"><span class="nav-number">6.</span> <span class="nav-text">发表动态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#feed流"><span class="nav-number">7.</span> <span class="nav-text">feed流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞"><span class="nav-number">8.</span> <span class="nav-text">主题点赞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞列表"><span class="nav-number">9.</span> <span class="nav-text">主题点赞列表:</span></a></li></ol></div>
             
 
           </div>
