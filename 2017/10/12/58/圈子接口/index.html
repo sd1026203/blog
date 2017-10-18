@@ -97,7 +97,7 @@
 <meta property="og:url" content="sd1026203.github.io/2017/10/12/58/圈子接口/index.html">
 <meta property="og:site_name" content="高山仰止,景行行止">
 <meta property="og:description" content="综述maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;g">
-<meta property="og:updated_time" content="2017-10-17T09:47:32.289Z">
+<meta property="og:updated_time" content="2017-10-18T09:09:11.968Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="圈子接口">
 <meta name="twitter:description" content="综述maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;g">
@@ -492,9 +492,9 @@
     "userID": null,      //用户ID, 用户关注feed流添加此参数
     "cities": null       //展示城市, 不能为空
 }
+</pre>
 
-
-返回值: 
+<p>返回值: </p>
 <pre>
 [
     {
@@ -554,7 +554,38 @@
 }
 </pre>
 
+<h2 id="主题提醒提示"><a href="#主题提醒提示" class="headerlink" title="主题提醒提示"></a>主题提醒提示</h2><p>请求方法: topicService.appGetAPPTopicMotifyModelCount(APPQueryTopicNotifyCountModel appQueryTopicNotifyCountModel)</p>
+<p>参数: appQueryTopicNotifyCountModel</p>
+<pre>
+{
+ "businessID":null, //业务线ID
+ "userID":null      //用户ID
+}
 </pre>
+返回值: long, 消息累计数
+
+## 消息列表
+请求方法: appGetAPPTopicMotifyModelList(APPQueryTopicNotifyListModel appQueryTopicNotifyListModel)
+
+参数: appQueryTopicNotifyListModel
+<pre>
+{
+  "businessID":null, //业务线ID
+  "userID":null,     //用户ID
+  "pageSize":null    //分页大小
+}
+</pre>
+
+<p>返回值: </p>
+<pre>
+{
+  "type":null,       //类型, 1: 点赞, 2: 回复
+  "obj":null,        //对应的对象
+  "gmtCreated":null  //时间
+}
+</pre>
+
+
       
     </div>
 
@@ -733,7 +764,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">1.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖"><span class="nav-number">1.1.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">1.2.</span> <span class="nav-text">评论相关的返回值格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User对象"><span class="nav-number">1.3.</span> <span class="nav-text">User对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#圈子API"><span class="nav-number">2.</span> <span class="nav-text">圈子API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表-分页查询"><span class="nav-number">2.1.</span> <span class="nav-text">圈子列表 - 分页查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表-根据圈子ID查询"><span class="nav-number">2.2.</span> <span class="nav-text">圈子列表 - 根据圈子ID查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子"><span class="nav-number">2.3.</span> <span class="nav-text">关注圈子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主题API"><span class="nav-number">3.</span> <span class="nav-text">主题API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#发表主题"><span class="nav-number">3.1.</span> <span class="nav-text">发表主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#feed流"><span class="nav-number">3.2.</span> <span class="nav-text">feed流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞"><span class="nav-number">3.3.</span> <span class="nav-text">主题点赞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞列表"><span class="nav-number">3.4.</span> <span class="nav-text">主题点赞列表:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">1.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖"><span class="nav-number">1.1.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">1.2.</span> <span class="nav-text">评论相关的返回值格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User对象"><span class="nav-number">1.3.</span> <span class="nav-text">User对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#圈子API"><span class="nav-number">2.</span> <span class="nav-text">圈子API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表-分页查询"><span class="nav-number">2.1.</span> <span class="nav-text">圈子列表 - 分页查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表-根据圈子ID查询"><span class="nav-number">2.2.</span> <span class="nav-text">圈子列表 - 根据圈子ID查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子"><span class="nav-number">2.3.</span> <span class="nav-text">关注圈子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主题API"><span class="nav-number">3.</span> <span class="nav-text">主题API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#发表主题"><span class="nav-number">3.1.</span> <span class="nav-text">发表主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#feed流"><span class="nav-number">3.2.</span> <span class="nav-text">feed流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞"><span class="nav-number">3.3.</span> <span class="nav-text">主题点赞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞列表"><span class="nav-number">3.4.</span> <span class="nav-text">主题点赞列表:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题提醒提示"><span class="nav-number">3.5.</span> <span class="nav-text">主题提醒提示</span></a></li></ol></li></ol></div>
             
 
           </div>

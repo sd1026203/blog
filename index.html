@@ -497,9 +497,9 @@
     "userID": null,      //用户ID, 用户关注feed流添加此参数
     "cities": null       //展示城市, 不能为空
 }
+</pre>
 
-
-返回值: 
+<p>返回值: </p>
 <pre>
 [
     {
@@ -559,7 +559,38 @@
 }
 </pre>
 
+<h2 id="主题提醒提示"><a href="#主题提醒提示" class="headerlink" title="主题提醒提示"></a>主题提醒提示</h2><p>请求方法: topicService.appGetAPPTopicMotifyModelCount(APPQueryTopicNotifyCountModel appQueryTopicNotifyCountModel)</p>
+<p>参数: appQueryTopicNotifyCountModel</p>
+<pre>
+{
+ "businessID":null, //业务线ID
+ "userID":null      //用户ID
+}
 </pre>
+返回值: long, 消息累计数
+
+## 消息列表
+请求方法: appGetAPPTopicMotifyModelList(APPQueryTopicNotifyListModel appQueryTopicNotifyListModel)
+
+参数: appQueryTopicNotifyListModel
+<pre>
+{
+  "businessID":null, //业务线ID
+  "userID":null,     //用户ID
+  "pageSize":null    //分页大小
+}
+</pre>
+
+<p>返回值: </p>
+<pre>
+{
+  "type":null,       //类型, 1: 点赞, 2: 回复
+  "obj":null,        //对应的对象
+  "gmtCreated":null  //时间
+}
+</pre>
+
+
           
         
       
