@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="综述maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;g">
+<meta name="description" content="综述maven依赖                  com.bj58.spider           com.bj58.spider.pinglun.contract           0.0.5-SNAPSHOT         ## 评论相关的返回值格式  先说一下返回值的总体格式如下:   { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;st">
 <meta name="keywords" content="58">
 <meta property="og:type" content="article">
 <meta property="og:title" content="圈子接口">
 <meta property="og:url" content="sd1026203.github.io/2017/10/12/58/圈子接口/index.html">
 <meta property="og:site_name" content="高山仰止,景行行止">
-<meta property="og:description" content="综述maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;g">
-<meta property="og:updated_time" content="2017-10-18T09:09:11.968Z">
+<meta property="og:description" content="综述maven依赖                  com.bj58.spider           com.bj58.spider.pinglun.contract           0.0.5-SNAPSHOT         ## 评论相关的返回值格式  先说一下返回值的总体格式如下:   { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;st">
+<meta property="og:updated_time" content="2017-10-19T06:16:41.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="圈子接口">
-<meta name="twitter:description" content="综述maven依赖&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.bj58.spider&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;com.bj58.spider.pinglun.contract&amp;lt;/artifactId&amp;gt;     &amp;lt;version&amp;gt;0.0.5-SNAPSHOT&amp;lt;/version&amp;g">
+<meta name="twitter:description" content="综述maven依赖                  com.bj58.spider           com.bj58.spider.pinglun.contract           0.0.5-SNAPSHOT         ## 评论相关的返回值格式  先说一下返回值的总体格式如下:   { &quot;data&quot;: null,     &quot;baseResponse&quot;: {        &quot;st">
 
 
 
@@ -356,12 +356,17 @@
       
 
       
-        <h1 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h1><h2 id="maven依赖"><a href="#maven依赖" class="headerlink" title="maven依赖"></a>maven依赖</h2><pre><code>&lt;dependency&gt;
-    &lt;groupId&gt;com.bj58.spider&lt;/groupId&gt;
-    &lt;artifactId&gt;com.bj58.spider.pinglun.contract&lt;/artifactId&gt;
-    &lt;version&gt;0.0.5-SNAPSHOT&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre><h2 id="评论相关的返回值格式"><a href="#评论相关的返回值格式" class="headerlink" title="评论相关的返回值格式"></a>评论相关的返回值格式</h2><p>先说一下返回值的总体格式如下:</p>
+        <h1 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h1><h2 id="maven依赖"><a href="#maven依赖" class="headerlink" title="maven依赖"></a>maven依赖</h2><pre>
+      <dependency>
+          <groupid>com.bj58.spider</groupid>
+          <artifactid>com.bj58.spider.pinglun.contract</artifactid>
+          <version>0.0.5-SNAPSHOT</version>
+      </dependency>
+</pre>
+## 评论相关的返回值格式
+
+先说一下返回值的总体格式如下:
+
 <pre>
 { "data": null,
 
@@ -382,9 +387,11 @@
 }
 </pre>
 
-<h1 id="圈子API"><a href="#圈子API" class="headerlink" title="圈子API"></a>圈子API</h1><h2 id="圈子列表-分页查询"><a href="#圈子列表-分页查询" class="headerlink" title="圈子列表 - 分页查询"></a>圈子列表 - 分页查询</h2><p>请求方法: CircleService.getCircles(QueryCirclesModel queryCirclesModel)</p>
-<p>参数queryCirclesModel:</p>
-<pre>
+<h1 id="圈子API"><a href="#圈子API" class="headerlink" title="圈子API"></a>圈子API</h1><h2 id="圈子列表-分页查询"><a href="#圈子列表-分页查询" class="headerlink" title="圈子列表 - 分页查询"></a>圈子列表 - 分页查询</h2><pre>
+请求方法: CircleService.getCircles(QueryCirclesModel queryCirclesModel)
+
+参数queryCirclesModel:
+
 {
     "businessID": null, //业务线ID
     "circleID": null,   //圈子ID, 用于分页查询, 查询时输入上次查询的最后一个ID, 首次查询传null
@@ -393,17 +400,18 @@
 </pre>
 
 
-<h2 id="圈子列表-根据圈子ID查询"><a href="#圈子列表-根据圈子ID查询" class="headerlink" title="圈子列表 - 根据圈子ID查询"></a>圈子列表 - 根据圈子ID查询</h2><p>请求方法: CircleService.getCircles(APPQueryCirclesByRowKeyAndColKeysModel appQueryCirclesByRowKeyAndColKeysModel)</p>
-<p>参数APPQueryCirclesByRowKeyAndColKeysModel:</p>
-<pre>
+<h2 id="圈子列表-根据圈子ID查询"><a href="#圈子列表-根据圈子ID查询" class="headerlink" title="圈子列表 - 根据圈子ID查询"></a>圈子列表 - 根据圈子ID查询</h2><pre>
+请求方法: CircleService.getCircles(APPQueryCirclesByRowKeyAndColKeysModel appQueryCirclesByRowKeyAndColKeysModel)
+
+参数APPQueryCirclesByRowKeyAndColKeysModel:
 {
     "businessID": null, //业务线ID
     "circleIDs": []     //圈子ID集合
 }
-</pre>
 
-<p>返回值:List<appcirclemodel><br>APPCircleModel格式为:</appcirclemodel></p>
-<pre>
+
+返回值:List<appcirclemodel>
+APPCircleModel格式为:
 {
     "title": null,        //圈子名称
     "description": null,  //圈子描述
@@ -411,32 +419,35 @@
     "businessID": null,   //业务线ID
     "circleID": null      //圈子ID
 }
-</pre>
+</appcirclemodel></pre>
 
-<h2 id="关注圈子"><a href="#关注圈子" class="headerlink" title="关注圈子"></a>关注圈子</h2><p>请求方法: CircleService.followCircle(APPFollowCircleModel appFollowCircleModel)<br>参数appFollowCircleModel:</p>
-<pre>
+<h2 id="关注圈子"><a href="#关注圈子" class="headerlink" title="关注圈子"></a>关注圈子</h2><pre>
+请求方法: CircleService.followCircle(APPFollowCircleModel appFollowCircleModel)
+参数appFollowCircleModel:
+
 {
     "circleID": null,   //圈子ID
     "title": null,      //圈子名称
     "user": null,       //关注用户, 为User对象
     "businessID": null  //业务线ID
 }
-</pre>
-返回值: Boolean
 
-## 关注圈子列表
+返回值: Boolean
+</pre>
+
+<h2 id="关注圈子列表"><a href="#关注圈子列表" class="headerlink" title="关注圈子列表"></a>关注圈子列表</h2><pre>
 请求方法: CircleService.whoFollowsCircle(APPWhoFollowsCircleModel appWhoFollowsCircleModel);
 参数appWhoFollowsCircleModel:
-<pre>
+
 {
     "circleID": null,    //圈子ID
     "businessID": null,  //业务线ID
     "pageNum": null,     //第几页
     "pageSize": null     //每页几条数据
 }
-</pre>
+
 返回值: WhoFollowsCircleModel
-<pre>
+
 {
  "totalCount":null,
  "whoFollows":[]
@@ -444,9 +455,11 @@
 </pre>
 
 
-<h1 id="主题API"><a href="#主题API" class="headerlink" title="主题API"></a>主题API</h1><h2 id="发表主题"><a href="#发表主题" class="headerlink" title="发表主题"></a>发表主题</h2><p>请求方法: TopicService.APPAddTopicModel(APPAddTopicModel appAddTopicModel)</p>
-<p>参数appAddTopicModel</p>
-<pre>
+<h1 id="主题API"><a href="#主题API" class="headerlink" title="主题API"></a>主题API</h1><h2 id="发表主题"><a href="#发表主题" class="headerlink" title="发表主题"></a>发表主题</h2><pre>
+请求方法: TopicService.APPAddTopicModel(APPAddTopicModel appAddTopicModel)
+
+参数appAddTopicModel
+
 {
     "content":null,     //内容
     "imgs":null,        //图片
@@ -458,10 +471,8 @@
     "cities":null,      //所属城市
     "source":null       //来源, 1:用户, 2:编辑
 }
-</pre>
 
-<p>返回值:TopicModelResponse</p>
-<pre>
+返回值:TopicModelResponse
 {
     "content":null,     //内容
     "imgs":null,        //图片
@@ -481,9 +492,10 @@
 }
 </pre>
 
-<h2 id="feed流"><a href="#feed流" class="headerlink" title="feed流"></a>feed流</h2><p>请求方法: TopicService.appGetTopicModelList(APPQueryTopicModelListModel appQueryTopicModelListModel)</p>
-<p>参数: appQueryTopicModelListModel</p>
-<pre>
+<h2 id="feed流"><a href="#feed流" class="headerlink" title="feed流"></a>feed流</h2><pre>
+请求方法: TopicService.appGetTopicModelList(APPQueryTopicModelListModel appQueryTopicModelListModel)
+
+参数: appQueryTopicModelListModel
 {
     "businessID": null,  //业务线ID,不能为空
     "circleID": null,    //圈子ID, 圈子feed流添加此参数
@@ -492,10 +504,8 @@
     "userID": null,      //用户ID, 用户关注feed流添加此参数
     "cities": null       //展示城市, 不能为空
 }
-</pre>
 
-<p>返回值: </p>
-<pre>
+返回值: 
 [
     {
         "content":null,     //内容
@@ -517,8 +527,35 @@
 ]
 </pre>
 
-<h2 id="主题点赞"><a href="#主题点赞" class="headerlink" title="主题点赞"></a>主题点赞</h2><p>请求方法: topicSercvice.appLikeTopic(APPLikeTopicModel appLikeTopicModel)<br>参数appLikeTopicModel</p>
-<pre>
+<h2 id="获取主题-根据ID"><a href="#获取主题-根据ID" class="headerlink" title="获取主题-根据ID"></a>获取主题-根据ID</h2><pre>
+请求方法: topicService.appGetTopicModelList(Set<long> topicIDs)
+请求参数: 主题ID
+返回值:
+[
+    {
+        "content":null,     //内容
+        "imgs":null,        //图片
+        "videos":null,      //视频
+        "user":null,        //发表用户
+        "createdTime":null, //创建时间
+        "modifiedTime":null,//修改时间
+        "essencedTime":null,//加精时间
+        "isdel":null,       //是否被删除, 0:未删除, 1:删除
+        "checkStatus":null, //审核状态
+        "topicID":null,     //动态ID
+        "businessID":null,  //业务线ID
+        "circleID":null,    //圈子ID
+        "rejectReason":null,//驳回原因
+        "cities":null,      //城市
+        "source":null       //来源
+    }
+]
+</long></pre>
+
+<h2 id="主题点赞"><a href="#主题点赞" class="headerlink" title="主题点赞"></a>主题点赞</h2><pre>
+请求方法: topicSercvice.appLikeTopic(APPLikeTopicModel appLikeTopicModel)
+
+参数appLikeTopicModel
 {
     "userID": null,    //用户ID, 登录用户需传此参数
     "topicID": null,   //主题ID, 不能为空
@@ -526,12 +563,17 @@
     "circleID": null,  //圈子ID, 不能为空
     "businessID": null //业务线ID, 不能为空
 }
+
+返回值: boolean
 </pre>
 
-<p>返回值: boolean</p>
-<h2 id="主题点赞列表"><a href="#主题点赞列表" class="headerlink" title="主题点赞列表:"></a>主题点赞列表:</h2><p>请求方法: to’pService.appGetWhoLikesTopicModel(APPQueryWhoLikesTopic appQueryWhoLikesTopic)</p>
-<p>参数: appQueryWhoLikesTopic</p>
-<pre>
+
+
+<h2 id="主题点赞列表"><a href="#主题点赞列表" class="headerlink" title="主题点赞列表:"></a>主题点赞列表:</h2><pre>
+请求方法: to'pService.appGetWhoLikesTopicModel(APPQueryWhoLikesTopic appQueryWhoLikesTopic)
+
+参数: appQueryWhoLikesTopic
+
 {
     "businessID": null, //业务线ID, 不能为空
     "circleID": null,   //圈子ID, 不能为空
@@ -539,10 +581,8 @@
     "pageNum": null,    //第几页
     "pageSize": null    //每页大小
 }
-</pre>
 
-<p>返回值:WhoLikesTopicModelResponse</p>
-<pre>
+返回值:WhoLikesTopicModelResponse
 {
     "totalCount": null,     //点赞总数
     "whoModels": [
@@ -554,30 +594,31 @@
 }
 </pre>
 
-<h2 id="主题提醒提示"><a href="#主题提醒提示" class="headerlink" title="主题提醒提示"></a>主题提醒提示</h2><p>请求方法: topicService.appGetAPPTopicMotifyModelCount(APPQueryTopicNotifyCountModel appQueryTopicNotifyCountModel)</p>
-<p>参数: appQueryTopicNotifyCountModel</p>
-<pre>
+<h2 id="主题提醒提示"><a href="#主题提醒提示" class="headerlink" title="主题提醒提示"></a>主题提醒提示</h2><pre>
+请求方法: topicService.appGetAPPTopicMotifyModelCount(APPQueryTopicNotifyCountModel appQueryTopicNotifyCountModel)
+
+参数: appQueryTopicNotifyCountModel
+
 {
  "businessID":null, //业务线ID
  "userID":null      //用户ID
 }
-</pre>
-返回值: long, 消息累计数
 
+返回值: long, 消息累计数
+</pre>
 ## 消息列表
+<pre>
 请求方法: appGetAPPTopicMotifyModelList(APPQueryTopicNotifyListModel appQueryTopicNotifyListModel)
 
 参数: appQueryTopicNotifyListModel
-<pre>
 {
   "businessID":null, //业务线ID
   "userID":null,     //用户ID
   "pageSize":null    //分页大小
 }
-</pre>
 
-<p>返回值: </p>
-<pre>
+
+返回值: 
 {
   "type":null,       //类型, 1: 点赞, 2: 回复
   "obj":null,        //对应的对象
@@ -764,7 +805,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">1.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖"><span class="nav-number">1.1.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论相关的返回值格式"><span class="nav-number">1.2.</span> <span class="nav-text">评论相关的返回值格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User对象"><span class="nav-number">1.3.</span> <span class="nav-text">User对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#圈子API"><span class="nav-number">2.</span> <span class="nav-text">圈子API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表-分页查询"><span class="nav-number">2.1.</span> <span class="nav-text">圈子列表 - 分页查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表-根据圈子ID查询"><span class="nav-number">2.2.</span> <span class="nav-text">圈子列表 - 根据圈子ID查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子"><span class="nav-number">2.3.</span> <span class="nav-text">关注圈子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主题API"><span class="nav-number">3.</span> <span class="nav-text">主题API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#发表主题"><span class="nav-number">3.1.</span> <span class="nav-text">发表主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#feed流"><span class="nav-number">3.2.</span> <span class="nav-text">feed流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞"><span class="nav-number">3.3.</span> <span class="nav-text">主题点赞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞列表"><span class="nav-number">3.4.</span> <span class="nav-text">主题点赞列表:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题提醒提示"><span class="nav-number">3.5.</span> <span class="nav-text">主题提醒提示</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">1.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖"><span class="nav-number">1.1.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User对象"><span class="nav-number">1.2.</span> <span class="nav-text">User对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#圈子API"><span class="nav-number">2.</span> <span class="nav-text">圈子API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表-分页查询"><span class="nav-number">2.1.</span> <span class="nav-text">圈子列表 - 分页查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#圈子列表-根据圈子ID查询"><span class="nav-number">2.2.</span> <span class="nav-text">圈子列表 - 根据圈子ID查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子"><span class="nav-number">2.3.</span> <span class="nav-text">关注圈子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注圈子列表"><span class="nav-number">2.4.</span> <span class="nav-text">关注圈子列表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主题API"><span class="nav-number">3.</span> <span class="nav-text">主题API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#发表主题"><span class="nav-number">3.1.</span> <span class="nav-text">发表主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#feed流"><span class="nav-number">3.2.</span> <span class="nav-text">feed流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取主题-根据ID"><span class="nav-number">3.3.</span> <span class="nav-text">获取主题-根据ID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞"><span class="nav-number">3.4.</span> <span class="nav-text">主题点赞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题点赞列表"><span class="nav-number">3.5.</span> <span class="nav-text">主题点赞列表:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题提醒提示"><span class="nav-number">3.6.</span> <span class="nav-text">主题提醒提示</span></a></li></ol></li></ol></div>
             
 
           </div>
