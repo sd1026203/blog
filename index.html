@@ -516,7 +516,8 @@ APPCircleModel格式为:
     "circleIDs":null,    //圈子ID列表
     "rejectReason":null,//驳回原因
     "cities":null,      //城市
-    "source":null       //来源
+    "source":null,       //来源
+
 }
 </pre>
 
@@ -530,7 +531,8 @@ APPCircleModel格式为:
     "pageNum": null,     //第几页
     "pageSize": null,    //每页几条
     "userID": null,      //用户ID, 用户关注feed流添加此参数
-    "cities": null       //展示城市, 不能为空
+    "cities": null,      //展示城市, 不能为空
+    "imei": null,        //机器码
 }
 
 返回值: 
@@ -550,13 +552,14 @@ APPCircleModel格式为:
         "circleIDs":null,    //圈子ID列表
         "rejectReason":null,//驳回原因
         "cities":null,      //城市
-        "source":null       //来源
+        "source":null,       //来源
+        "ifLike":null        //是否点赞
     }
 ]
 </pre>
 
 <h2 id="获取主题-根据ID"><a href="#获取主题-根据ID" class="headerlink" title="获取主题-根据ID"></a>获取主题-根据ID</h2><pre>
-请求方法: topicService.appGetTopicModelList(Set<long> topicIDs)
+请求方法: topicService.appGetTopicModelList(Set<long> topicIDs, String imei, Long userID)
 请求参数: 主题ID
 返回值:
 [
@@ -575,7 +578,8 @@ APPCircleModel格式为:
         "circleIDs":null,    //圈子ID
         "rejectReason":null,//驳回原因
         "cities":null,      //城市
-        "source":null       //来源
+        "source":null,       //来源
+        "ifLike":null        //是否点赞
     }
 ]
 </long></pre>
